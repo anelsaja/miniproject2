@@ -1,0 +1,293 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  background-color: white;
+}
+
+/* ----HEADER---- */
+.head {
+  position: sticky;
+  top: 0;
+}
+header {
+  display: flex;
+  align-items: center;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  background-color: #811001;
+  z-index: 1;
+}
+.logo1 img {
+  margin-left: 3rem;
+  width: 65px;
+  height: 50px;
+}
+.website {
+  margin-left: 10px;
+}
+.website a {
+  text-decoration: none;
+  color: white;
+}
+.cari {
+  margin-left: 59rem;
+}
+.inputcari {
+  padding: 10px;
+  border: 1px solid;
+  border-radius: 5px;
+}
+.login {
+  margin-left: 1rem;
+}
+.login a {
+  color: #04ec04;
+  text-decoration: none;
+  padding: 15px;
+  border: 1px solid white;
+  border-radius: 10px;
+}
+.login a:hover {
+  background-color: #00bc00;
+  color: white;
+}
+/* ----Awalan---- */
+.timer {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  background-color: #f9a79c;
+  z-index: 1;
+  text-align: center;
+}
+h5 {
+  margin-left: 3rem;
+  margin-top: 1rem;
+}
+h5 a {
+  text-decoration: none;
+  color: black;
+}
+h5 a:hover {
+  text-decoration: underline;
+}
+.awalan {
+  margin-left: 2rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+.awalan .login a {
+  color: #04ec04;
+  text-decoration: none;
+  padding: 15px;
+  border: 1px solid black;
+  border-radius: 10px;
+  font-weight: bold;
+}
+.awalan .login a:hover {
+  background-color: #00bc00;
+  color: white;
+}
+
+/* ----judul---- */
+.judul {
+  margin-top: 1.5rem;
+  margin-left: 3rem;
+  text-transform: uppercase;
+}
+
+/* PEMESANAN */
+.datapembeli {
+  margin-top: 10px;
+  margin-left: 3rem;
+  float: left;
+}
+fieldset {
+  padding-right: 20rem;
+  padding-left: 4rem;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  background-color: #e8f9fd;
+  border: none;
+  box-shadow: 1px 1px 5px black;
+}
+
+fieldset input,
+select {
+  margin-bottom: 20px;
+  padding: 7px 25rem 7px 7px;
+  border-radius: 5px;
+}
+legend {
+  background-color: #5bdd47;
+  font-weight: bold;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.input input {
+  padding: 15px;
+  border-radius: 5px;
+  color: #00bc00;
+  border: 1px solid black;
+  font-weight: bold;
+  margin-bottom: 2rem;
+}
+.input input:hover {
+  background-color: #00bc00;
+  color: white;
+}
+
+/* ----Bukti transaksi---- */
+.kwitansi {
+  margin: 0rem 3rem 10rem 65rem;
+  padding: 10px;
+  background-color: #e8f9fd;
+  border-radius: 10px;
+  box-shadow: 1px 1px 5px black;
+}
+.poster {
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: 2px solid black;
+}
+.poster img {
+  width: 300px;
+  height: 300px;
+  margin-top: 10px;
+  margin-left: 20%;
+  margin-bottom: 10px;
+}
+.voucher {
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: 2px solid black;
+}
+.voucher input {
+  margin-top: 20px;
+  padding: 5px;
+  border-radius: 5px;
+}
+.voucher .terapkan {
+  border-radius: 5px;
+  color: #00bc00;
+  border: 1px solid black;
+}
+.voucher .terapkan:hover {
+  background-color: #00bc00;
+  color: white;
+}
+.rincian {
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: 2px solid black;
+}
+.total p {
+  margin-bottom: 10px;
+}
+.total a {
+  margin-left: 4rem;
+  padding: 5px 10rem;
+  border-radius: 5px;
+  color: #00bc00;
+  border: 1px solid black;
+  text-decoration: none;
+  font-weight: bold;
+}
+.total a:hover {
+  background-color: #00bc00;
+  color: white;
+}
+
+/* TIKET SHOW */
+#jenis_tiket {
+  margin-bottom: 1rem;
+  margin-top: 0.5rem;
+  margin-left: 3rem;
+  color: black;
+}
+.vip_header {
+  font-size: 10px;
+  display: flex;
+  justify-content: space-between;
+  color: black;
+  background-color: antiquewhite;
+}
+.ket1 {
+  font-size: 10px;
+}
+.vip_body {
+  background-color: rgba(128, 0, 128, 0.39);
+  display: flex;
+  gap: 250px;
+}
+.vip_body h2 {
+  text-transform: uppercase;
+}
+.reguler_header {
+  font-size: 10px;
+  display: flex;
+  justify-content: space-between;
+  color: black;
+  background-color: antiquewhite;
+}
+.reguler_body {
+  background-color: rgba(128, 0, 128, 0.39);
+  display: flex;
+  gap: 250px;
+}
+.reguler_body h2 {
+  text-transform: uppercase;
+}
+
+/* FOOTER CSS */
+
+footer {
+  background-color: #811001;
+  padding-top: 30px;
+  padding-bottom: 20px;
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
+.footer1 {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 2px solid white;
+  padding-bottom: 30px;
+}
+.footerkiri {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.logo {
+  width: 80px;
+  height: 65px;
+}
+.footerkiri p {
+  color: white;
+  width: 350px;
+}
+.footerkiri a {
+  text-decoration: none;
+}
+.sosmed a {
+  text-decoration: none;
+}
+.sosmed a img {
+  width: 30px;
+  height: 30px;
+  margin-left: 10px;
+}
+.sosmed a img:hover {
+  border: none;
+  box-shadow: 1px 1px 5px black;
+}
+.copyright {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  color: white;
+}

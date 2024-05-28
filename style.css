@@ -1,0 +1,290 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  background-color: white;
+  /* height: auto; */
+  /* max-height: fit-content; */
+}
+
+/* ----HEADER---- */
+header {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  background-color: #811001;
+  z-index: 1;
+}
+.logo1 img {
+  margin-left: 3rem;
+  width: 65px;
+  height: 50px;
+}
+.website {
+  margin-left: 10px;
+}
+.website a {
+  text-decoration: none;
+  color: white;
+}
+.cari {
+  margin-left: 59rem;
+}
+.inputcari {
+  padding: 10px;
+  border: 1px solid;
+  border-radius: 5px;
+}
+.login {
+  margin-left: 1rem;
+}
+.login a {
+  color: #04ec04;
+  text-decoration: none;
+  padding: 15px;
+  border: 1px solid white;
+  border-radius: 10px;
+}
+.login a:hover {
+  background-color: #00bc00;
+  color: white;
+}
+
+/* ----Awalan---- */
+h5 {
+  margin-left: 3rem;
+  margin-top: 1rem;
+}
+h5 a {
+  text-decoration: none;
+  color: black;
+}
+h5 a:hover {
+  text-decoration: underline;
+}
+.awalan {
+  margin-left: 2rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+.awalan .login a {
+  color: #04ec04;
+  text-decoration: none;
+  padding: 15px;
+  border: 1px solid black;
+  border-radius: 10px;
+  font-weight: bold;
+}
+.awalan .login a:hover {
+  background-color: #00bc00;
+  color: white;
+}
+
+/* ----Main---- */
+main h1 {
+  margin-top: 1.5rem;
+  margin-left: 3rem;
+}
+.event {
+  margin-top: 0.5rem;
+  margin-left: 3rem;
+  margin-right: 2rem;
+  float: left;
+  padding: 1rem 5rem 1rem 1rem;
+  border-radius: 10px;
+  background-color: #e8f9fd;
+  border: none;
+  box-shadow: 1px 1px 5px black;
+}
+.event-banner {
+  float: right;
+}
+.event-banner img {
+  width: 25rem;
+  height: 25rem;
+  border-radius: 12px;
+  margin-right: 2rem;
+}
+.event .penyelenggara {
+  float: right;
+  width: 25em;
+}
+.event .penyelenggara img {
+  margin-top: 2px;
+  margin-left: 10px;
+  width: 5rem;
+  height: 3rem;
+}
+.event .penyelenggara p {
+  margin-left: 15px;
+}
+.sosialmedia a {
+  text-decoration: none;
+  margin-left: 11px;
+  font-size: large;
+}
+.sosialmedia a:hover {
+  color: #00bc00;
+}
+.artis p {
+  font-weight: bold;
+  font-size: 22px;
+}
+.detail_info {
+  margin-top: 0.5rem;
+  margin-right: 3rem;
+  margin-left: 56rem;
+  padding: 1rem 0rem 1rem 1rem;
+}
+.detail_info h2 {
+  margin-bottom: 1rem;
+}
+label {
+  font-size: 30px;
+  color: #811001;
+  margin-bottom: 0px;
+}
+
+span {
+  margin-bottom: 15px;
+  font-size: 25px;
+  font-weight: 200;
+  color: black;
+  padding: 2px 0;
+}
+
+.calendar,
+.time,
+.location {
+  display: flex;
+  flex-direction: row;
+}
+.calendar-icon img,
+.time-icon img,
+.location-icon img {
+  width: 30px;
+  height: 30px;
+}
+
+.calendar-text,
+.time-text,
+.location-text {
+  display: flex;
+  flex-direction: column;
+  padding: 0 12px;
+}
+.belitiket {
+  margin-top: 0.5rem;
+  margin-bottom: 7rem;
+}
+.belitiket a {
+  padding: 10px 10rem;
+  border-radius: 5px;
+  color: #00bc00;
+  border: 1px solid black;
+  text-decoration: none;
+  font-weight: bold;
+}
+.belitiket a:hover {
+  background-color: #00bc00;
+  color: white;
+}
+.deskripsi {
+  margin-left: 3rem;
+  width: 58rem;
+  margin-right: 3rem;
+  margin-bottom: 1rem;
+  border-top: 2px solid black;
+  float: left;
+}
+.deskripsi h2 {
+  margin-top: 1rem;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+.deskripsi p {
+  line-height: 27px;
+}
+.syarat {
+  margin-top: 20px;
+}
+.syarat p {
+  text-transform: uppercase;
+  font-weight: bold;
+}
+.venue {
+  padding-top: 1rem;
+}
+.venue h2 {
+  text-transform: uppercase;
+}
+.layout {
+  margin: 1rem 1rem 20rem 10rem;
+  float: both;
+}
+.layout img {
+  margin-top: 2rem;
+  width: 25.5rem;
+  height: 25.5rem;
+  border: none;
+  box-shadow: 1px 1px 5px black;
+  border-radius: 10px;
+}
+.layout img:hover {
+  transform: scale(1.2);
+  position: clear;
+}
+
+/* ----Footer---- */
+footer {
+  background-color: #811001;
+  padding-top: 30px;
+  padding-bottom: 20px;
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
+.footer1 {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 2px solid white;
+  padding-bottom: 30px;
+}
+.footerkiri {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.logo {
+  width: 80px;
+  height: 65px;
+}
+.footerkiri p {
+  color: white;
+  width: 350px;
+}
+.footerkiri a {
+  text-decoration: none;
+}
+.sosmed a {
+  text-decoration: none;
+}
+.sosmed a img {
+  width: 30px;
+  height: 30px;
+  margin-left: 10px;
+}
+.sosmed a img:hover {
+  border: none;
+  box-shadow: 1px 1px 5px black;
+}
+.copyright {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  color: white;
+}

@@ -1,0 +1,264 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  background-color: white;
+}
+
+/* ----HEADER---- */
+header {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  background-color: #811001;
+  z-index: 1;
+}
+.logo1 img {
+  margin-left: 3rem;
+  width: 65px;
+  height: 50px;
+}
+.website {
+  margin-left: 10px;
+}
+.website a {
+  text-decoration: none;
+  color: white;
+}
+.cari {
+  margin-left: 59rem;
+}
+.inputcari {
+  padding: 10px;
+  border: 1px solid;
+  border-radius: 5px;
+}
+.login {
+  margin-left: 1rem;
+}
+.login a {
+  color: #04ec04;
+  text-decoration: none;
+  padding: 15px;
+  border: 1px solid white;
+  border-radius: 10px;
+}
+.login a:hover {
+  background-color: #00bc00;
+  color: white;
+}
+
+/* ----Halaman Utama---- */
+.banner {
+  margin: 1rem 3rem 3rem 3rem;
+  padding: 100px;
+  border-radius: 10px;
+  background-image: url(img/background\ header.jpg);
+}
+.banner .welcome {
+  font-weight: 500;
+  color: white;
+}
+.banner h1 {
+  text-align: center;
+  font-size: 48px;
+  font-weight: 600;
+  color: white;
+}
+.banner p {
+  text-align: center;
+  font-size: 18px;
+  margin-top: 20px;
+  line-height: 27px;
+  color: white;
+}
+
+/* ----Rekomendasi---- */
+.rekomendasi {
+  margin-bottom: 3rem;
+}
+.rekomendasi h1 {
+  margin-bottom: 25px;
+  text-align: center;
+  font-size: 35px;
+  color: #000000;
+}
+.rekomendasi .side {
+  border-radius: 0px 60px 60px 0px;
+  background-color: #5bdd47;
+  margin-left: 3rem;
+  margin-right: 2rem;
+  width: 40rem;
+  height: 37rem;
+  float: left;
+}
+.rekomendasi .side h2 {
+  margin-top: 30%;
+  margin-left: 15%;
+  font-size: 70px;
+}
+.rekomendasi .side p {
+  margin-left: 15%;
+  color: white;
+}
+.rekomendasi .halrek .kotak {
+  margin-left: 3rem;
+  margin-right: 3rem;
+  height: 190px;
+  border-bottom: 2px solid black;
+  display: flex;
+  margin-bottom: 0.5rem;
+}
+.rekomendasi .halrek .kotak .poster {
+  margin-right: 30px;
+}
+.rekomendasi .halrek .kotak .poster img {
+  width: 180px;
+  height: 180px;
+  border-radius: 10px;
+}
+.rekomendasi .halrek .kotak .isi table tr td {
+  padding: 0.3rem;
+}
+.rekomendasi .halrek .kotak .isi h2 {
+  font-weight: bold;
+  color: #139100;
+}
+.rekomendasi .halrek .kotak .isi a {
+  text-decoration: none;
+}
+.rekomendasi .halrek .kotak .isi h2:hover {
+  color: #00bc00;
+}
+.harga {
+  color: red;
+  font-weight: bolder;
+}
+
+/* ----Jadwal Orkes---- */
+.jadwal {
+  padding-top: 1rem;
+  padding-bottom: 4rem;
+}
+.jadwal h1 {
+  margin-bottom: 25px;
+  text-align: center;
+  font-size: 35px;
+  color: #000000;
+}
+.container-content {
+  display: flex;
+}
+
+.jadwal .container-content .kotak {
+  margin-left: 3rem;
+  margin-bottom: 1rem;
+  width: 30rem;
+  height: 250px;
+  border-radius: 42px;
+  background: #e8f9fd;
+  box-shadow: 1px 1px 5px black;
+  padding: 1.5rem;
+  display: flex;
+}
+.jadwal .container-content .kotak .poster {
+  margin-right: 10px;
+}
+.jadwal .container-content .kotak .poster img {
+  width: 180px;
+  height: 180px;
+  border-radius: 10px;
+}
+.jadwal .container-content .kotak .isi table tr td {
+  padding: 0.3rem;
+}
+.jadwal .container-content .kotak .isi h2 {
+  font-size: medium;
+  color: #811001;
+}
+.detail {
+  margin-top: 2rem;
+  margin-right: 2rem;
+}
+.detail a {
+  padding: 0.8rem 1rem;
+  text-decoration: none;
+  border-radius: 5px;
+  background-color: #00bc00;
+  color: white;
+  border: 1px solid #dbdcef;
+}
+.detail a:hover {
+  background-color: #139100;
+}
+.seemore {
+  margin-top: 20px;
+}
+.seemore a {
+  margin-top: 10px;
+  padding: 15px;
+  border-radius: 5px;
+  border: 1px solid black;
+  color: #00bc00;
+  text-decoration: none;
+  font-weight: bold;
+  margin-left: 46.5%;
+}
+.seemore a:hover {
+  background-color: #00bc00;
+  color: white;
+}
+
+/* ----Footer---- */
+footer {
+  background-color: #811001;
+  padding-top: 30px;
+  padding-bottom: 20px;
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
+.footer1 {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 2px solid white;
+  padding-bottom: 30px;
+}
+.footerkiri {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.logo {
+  width: 80px;
+  height: 65px;
+}
+.footerkiri p {
+  color: white;
+  width: 350px;
+}
+.footerkiri a {
+  text-decoration: none;
+}
+.sosmed a {
+  text-decoration: none;
+}
+.sosmed a img {
+  width: 30px;
+  height: 30px;
+  margin-left: 10px;
+}
+.sosmed a img:hover {
+  border: none;
+  box-shadow: 1px 1px 5px black;
+}
+.copyright {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  color: white;
+}
