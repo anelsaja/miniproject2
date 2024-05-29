@@ -3,7 +3,7 @@
 
   $nama = htmlspecialchars($_GET['nama']);
   // echo $nama;
-  $queryorkes = mysqli_query($con, "SELECT * FROM jadwal_konser WHERE title='$nama'");
+  $queryorkes = mysqli_query($con, "SELECT id, img, title, DATE_FORMAT(tanggal, '%d %M %Y') as tanggal, lokasi, waktu, harga, imgorkes, deskripsi, syarat_dan_ketentuan, nama_orkes, sosial_media_link, artis, imgsosmed, imgpanggung FROM jadwal_konser WHERE title='$nama'");
   $orkes = mysqli_fetch_array($queryorkes);
 ?>
 

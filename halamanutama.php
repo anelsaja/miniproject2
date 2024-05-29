@@ -1,7 +1,9 @@
 <?php
   require "koneksi.php";
-  $query1 = mysqli_query($con, "SELECT id, img, title, tanggal, lokasi, waktu, harga FROM jadwal_konser WHERE id BETWEEN 1 AND 3");
-  $query2 = mysqli_query($con, "SELECT id, img, title, tanggal, lokasi, waktu, harga FROM jadwal_konser WHERE id BETWEEN 4 AND 6"); 
+
+  // $today = date("Y-m-d");
+  $query1 = mysqli_query($con, "SELECT id, img, title, tanggal, lokasi, waktu, harga FROM jadwal_konser WHERE tanggal >= CURDATE() ORDER BY tanggal ASC LIMIT 3");
+  $query2 = mysqli_query($con, "SELECT id, img, title, tanggal, lokasi, waktu, harga FROM jadwal_konser WHERE tanggal >= CURDATE() ORDER BY tanggal ASC LIMIT 3 OFFSET 3");
 ?>
 
 <!DOCTYPE html>
@@ -49,10 +51,10 @@
       </p>
     </div>
     <?php
-      $artis = "Zaridin Music";
+      $artis = "Dinda Teratu";
 
       // Query untuk mengecek keberadaan artis
-      $query_check = mysqli_query($con, "SELECT COUNT(*) as count FROM jadwal_konser WHERE nama_orkes = '$artis'");
+      $query_check = mysqli_query($con, "SELECT COUNT(*) as count FROM jadwal_konser WHERE artis LIKE '%$artis%'");
       if (!$query_check) {
           die("Query error: " . mysqli_error($con));
       }
@@ -63,7 +65,7 @@
       // Jika artis ditemukan, ambil data konser
       $konser_data = [];
       if ($artis_ada) {
-          $query_konser = mysqli_query($con, "SELECT id, img, title, tanggal, lokasi FROM jadwal_konser WHERE nama_orkes = '$artis'");
+          $query_konser = mysqli_query($con, "SELECT id, img, title, tanggal, lokasi FROM jadwal_konser WHERE artis LIKE '%$artis%' AND tanggal >= CURDATE() ORDER BY tanggal LIMIT 3");
           if (!$query_konser) {
               die("Query error: " . mysqli_error($con));
           }
@@ -92,7 +94,7 @@
                       <table>
                           <tr>
                               <td>Tanggal</td>
-                              <td>: ' . $konser['tanggal'] . '</td>
+                              <td>: ' . date('d F Y', strtotime($konser['tanggal'])) . '</td>
                           </tr>
                           <tr>
                               <td>Lokasi</td>
@@ -125,7 +127,7 @@
               <table>
                 <tr>
                   <td>Tanggal</td>
-                  <td>: <?php echo $data['tanggal']?></td>
+                  <td>: <?php echo date('d F Y', strtotime($data['tanggal'])) ?></td>
                 </tr>
                 <tr>
                   <td>Lokasi</td>
@@ -164,7 +166,7 @@
               <table>
                 <tr>
                   <td>Tanggal</td>
-                  <td>: <?php echo $data2['tanggal']?></td>
+                  <td>: <?php echo date('d F Y', strtotime($data2['tanggal'])) ?></td>
                 </tr>
                 <tr>
                   <td>Lokasi</td>
