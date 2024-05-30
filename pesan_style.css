@@ -203,43 +203,138 @@ legend {
 
 /* TIKET SHOW */
 #jenis_tiket {
-  margin-bottom: 1rem;
+  /* margin-bottom: 1rem;
   margin-top: 0.5rem;
   margin-left: 3rem;
+  color: black; */
+  top: 20%;
+  width: 100%;
   color: black;
+  display: flex;
+  justify-content: flex-start;
+  gap: 100px;
+  padding-top: 20px;
+  padding-left: 20px;
+  margin-left: 30px;
 }
 .vip_header {
-  font-size: 10px;
+  /* font-size: 10px;
   display: flex;
   justify-content: space-between;
   color: black;
-  background-color: antiquewhite;
+  background-color: antiquewhite; */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  color: whitesmoke;
+  background-image: url("img/konser\ 1.jpeg");
+  border: 4px 2px 0 2px solid rgb(185, 182, 182);
+  padding-left: 5%;
+  border-radius: 2em 2em 0 0;
 }
 .ket1 {
-  font-size: 10px;
+  /* font-size: 10px; */
+  padding-right: 5%;
+}
+/* ita tambah */
+.td1 .vip_header {
+  width: 300px;
+  height: 70px;
 }
 .vip_body {
-  background-color: rgba(128, 0, 128, 0.39);
+  /* background-color: rgba(128, 0, 128, 0.39);
   display: flex;
-  gap: 250px;
+  gap: 250px; */
+  width: 300px;
+  display: block;
+  align-items: left;
+  justify-content: space-between;
+  border: 2px solid black;
+  border-bottom-left-radius: 2em;
+  margin-bottom: 10%;
+}
+/* ita tambah */
+.vip_body table {
+  padding-top: 10%;
+  padding-left: 5%;
 }
 .vip_body h2 {
+  /* text-transform: uppercase; */
   text-transform: uppercase;
+  padding-top: 8%;
+  padding-left: 5%;
 }
+/* ita tambah */
+.harga1 {
+  padding-top: 12%;
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-bottom: 5%;
+  display: flex;
+  justify-content: space-between;
+}
+
 .reguler_header {
-  font-size: 10px;
+  /* font-size: 10px;
   display: flex;
   justify-content: space-between;
   color: black;
-  background-color: antiquewhite;
-}
-.reguler_body {
-  background-color: rgba(128, 0, 128, 0.39);
+  background-color: antiquewhite; */
   display: flex;
-  gap: 250px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  color: whitesmoke;
+  background-image: url("img/konser\ 1.jpeg");
+  border: 4px 2px 0 2px solid rgb(185, 182, 182);
+  padding-left: 5%;
+  border-radius: 2em 2em 0 0;
 }
+
+/* ita tambah */
+.ket2 {
+  padding-right: 2.5px;
+}
+/* ita tambah */
+.td2 .reguler_header {
+  width: 300px;
+  height: 70px;
+}
+
+.reguler_body {
+  /* background-color: rgba(128, 0, 128, 0.39);
+  display: flex;
+  gap: 250px; */
+  width: 300px;
+  display: block;
+  align-items: left;
+  justify-content: space-between;
+  border: 2px solid black;
+  border-bottom-right-radius: 2em;
+  margin-bottom: 10%;
+}
+/* ita tambah */
+.reguler_body table {
+  padding-top: 10%;
+  padding-left: 5%;
+}
+
 .reguler_body h2 {
+  /* text-transform: uppercase; */
   text-transform: uppercase;
+  padding-top: 8%;
+  padding-left: 5%;
+}
+
+/* ita tambah */
+.harga2 {
+  padding-top: 12%;
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-bottom: 5%;
+  display: flex;
+  justify-content: space-between;
 }
 
 /* FOOTER CSS */
