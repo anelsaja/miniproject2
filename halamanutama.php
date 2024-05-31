@@ -2,8 +2,8 @@
   require "koneksi.php";
 
   // $today = date("Y-m-d");
-  $query1 = mysqli_query($con, "SELECT id, img, title, tanggal, lokasi, waktu, harga FROM jadwal_konser WHERE tanggal >= CURDATE() ORDER BY tanggal ASC LIMIT 3");
-  $query2 = mysqli_query($con, "SELECT id, img, title, tanggal, lokasi, waktu, harga FROM jadwal_konser WHERE tanggal >= CURDATE() ORDER BY tanggal ASC LIMIT 3 OFFSET 3");
+  $query1 = mysqli_query($con, "SELECT id, img, title, tanggal, lokasi, waktu, CONCAT('Rp ', REPLACE(FORMAT(harga, 0), ',', '.'),',-') AS harga FROM jadwal_konser WHERE tanggal >= CURDATE() ORDER BY tanggal ASC LIMIT 3");
+  $query2 = mysqli_query($con, "SELECT id, img, title, tanggal, lokasi, waktu, CONCAT('Rp ', REPLACE(FORMAT(harga, 0), ',', '.'),',-') AS harga FROM jadwal_konser WHERE tanggal >= CURDATE() ORDER BY tanggal ASC LIMIT 3 OFFSET 3");
 ?>
 
 <!DOCTYPE html>
