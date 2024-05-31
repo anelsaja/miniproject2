@@ -138,7 +138,7 @@
                   <td>: <?php echo $data['waktu']?></td>
                 </tr>
                 <tr>
-                  <td class="harga">Harga</td>
+                  <td class="harga">Harga Mulai</td>
                   <td class="harga">: <?php echo $data['harga']?></td>
                 </tr>
               </table>
@@ -177,7 +177,7 @@
                   <td>: <?php echo $data2['waktu']?></td>
                 </tr>
                 <tr>
-                  <td class="harga">Harga</td>
+                  <td class="harga">Harga Mulai</td>
                   <td class="harga">: <?php echo $data2['harga']?></td>
                 </tr>
               </table>
