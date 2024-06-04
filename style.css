@@ -240,20 +240,20 @@ span {
   position: clear;
 }
 /* TIKET SHOW */
-#jenis_tiket {
-  /* margin-bottom: 1rem;
-  margin-top: 0.5rem;
-  margin-left: 3rem;
-  color: black; */
-  /* top: 20%;
-  width: 100%;
-  color: black; */
+.jenis_tiket {
+  /* margin-bottom: 1rem; */
+  margin-top: 8rem;
+  /* margin-left: 3rem; */
+  /* color: black; */
+  /* top: 20%; */
+  /* width: 100%; */
+  /* color: black; */
   display: flex;
-  justify-content: flex-start;
+  /* justify-content: flex-start; */
   gap: 100px;
   /* padding-top: 20px; */
-  padding-left: 20px;
-  margin-left: 30px;
+  /* padding-left: 20px; */
+  margin-left: 3rem;
 }
 .vip_header {
   font-size: small;
@@ -348,42 +348,40 @@ span {
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   background-color: #f5f5f5;
-  padding: 1.5rem;
-  max-width: 600px;
+  padding: 1rem;
+  max-width: 500px;
+  /* display: flex; */
 }
-
-/* Styling for the table header (<th> elements) */
+.paket h1 {
+  margin: 0rem;
+}
 .paket th {
-  text-align: left; /* Align content to the left */
-  padding: 0.75rem 1rem; /* Add some padding for better spacing */
-  font-weight: bold; /* Make headers bolder for distinction */
-  background-color: #e0e0e0; /* Light gray background for headers */
-  border-bottom: 1px solid #ddd; /* Add a border to separate headers */
+  text-align: left;
+  padding: 0.75rem 1rem;
+  font-weight: bold;
+  background-color: #e0e0e0;
+  border-bottom: 1px solid #ddd;
 }
 
-/* Styling for table rows (<tr> elements) */
 .paket tr {
-  border-bottom: 1px solid #ddd; /* Add a border for each row */
+  border-bottom: 1px solid #ddd;
 }
 
-/* Styling for table cells (<td> elements) */
 .paket td {
-  padding: 0.75rem 1rem; /* Consistent padding for cells */
+  padding: 0.75rem 1rem;
 }
 
-/* Styling for the "Beli Tiket" button */
 .paket input[type="submit"] {
-  background-color: #4caf50; /* Green for a positive action */
-  color: white; /* White text for readability */
-  padding: 10px 20px; /* Adjust padding for a good size */
-  border: none; /* Remove default border */
-  border-radius: 5px; /* Rounded corners for a modern look */
-  cursor: pointer; /* Indicate interactivity with a pointer cursor */
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-/* Styling for the "Beli Tiket" button on hover */
 .paket input[type="submit"]:hover {
-  background-color: #3e8e41; /* Darken green on hover */
+  background-color: #3e8e41;
 }
 
 /* ----Footer---- */
