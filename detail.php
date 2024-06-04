@@ -4,6 +4,7 @@
   $nama = htmlspecialchars($_GET['nama']);
   // echo $nama;
   $queryorkes = mysqli_query($con, "SELECT id, img, title, DATE_FORMAT(tanggal, '%d %M %Y') as tanggal, lokasi, waktu, harga, imgorkes, deskripsi, syarat_dan_ketentuan, nama_orkes, sosial_media_link, artis, imgsosmed, imgpanggung FROM jadwal_konser WHERE title='$nama'");
+  
   $orkes = mysqli_fetch_array($queryorkes);
 ?>
 
@@ -105,8 +106,89 @@
           </div>
         </div>
       </div>
-      <div class="belitiket">
-        <a href="pemesanan.html">Beli Tiket</a>
+      <!-- TAMPILAN JENIS TIKET -->
+      <?php
+      // Query to fetch VIP ticket price
+      $query_vip = "SELECT CONCAT('Rp ', REPLACE(FORMAT(harga, 0), ',', '.'),',-') AS harga FROM tiket WHERE tipePaket='VIP'";
+      $result_vip = mysqli_query($con, $query_vip);
+      $row_vip = mysqli_fetch_assoc($result_vip);
+      $harga_vip = $row_vip['harga'];
+
+      // Query to fetch regular ticket price
+      $query_reguler = "SELECT CONCAT('Rp ', REPLACE(FORMAT(harga, 0), ',', '.'),',-') AS harga FROM tiket WHERE tipePaket='Reguler'";
+      $result_reguler = mysqli_query($con, $query_reguler);
+      $row_reguler = mysqli_fetch_assoc($result_reguler);
+      $harga_reguler = $row_reguler['harga'];
+      ?>
+      <div id="jenis_tiket">
+          <!-- TIKET VIP -->
+          <table class="td1">
+            <td>
+              <div class="vip_header">
+                <h2>Presale VIP</h2>
+                <div class="ket1">
+                  <h2>On Sale</h2>
+                </div>
+              </div>
+              <div class="vip_body">
+                <div class="harga1">
+                  <label>Harga </label>
+                  <h4><?php echo ($harga_vip); ?></h4>
+                </div>
+              </div>
+            </td>
+          </table>
+
+          <!-- TIKET REGULER -->
+          <table class="td2">
+            <td>
+              <div class="reguler_header">
+                <h2>Presale Reguler</h2>
+                <div class="ket2">
+                  <h2>On Sale</h2>
+                </div>
+              </div>
+              <div class="reguler_body">
+                <div class="harga2">
+                  <label> Harga </label>
+                  <h4><?php echo ($harga_reguler); ?></h4>
+                </div>
+              </div>
+            </td>
+          </table>
+        </div>
+        <!-- TAMPILAN PAKET TIKET -->
+        <div class="paket">
+          <h1>Paket Tiket Konser</h1>
+          <form action="pemesanan.php" method="post">
+            <table>
+              <tr>
+                <th>Nama Paket</th>
+                <th>Kerterseediaan</th>
+              </tr>
+              <?php
+                        // Mengambil data tiket berdasarkan id konser
+                        $idKonser = $orkes['id'];
+                        $sql = "SELECT id, namaPaket, harga, stock FROM tiket WHERE idKonser = $idKonser";
+                        $result = $con->query($sql);
+                        if ($result->num_rows > 0) {
+                            while($row = $result->fetch_assoc()) {
+                                echo "<tr>
+                                <td>{$row['namaPaket']}</td>
+                                <td>{$row['stock']}</td>
+                                <td>  
+                                <input type='number' name='jumlah_tiket[{$row['id']}]' min='0' max='{$row['stock']}'>     
+                                </td>         
+                                </tr>";   
+                            }
+                        } else {
+                            echo "<tr><td colspan='3'>Tidak ada tiket tersedia</td></tr>";
+                        }
+                        ?>
+            </table>
+            <input type="submit" value="Beli Tiket">
+          </form>
+        </div>        
       </div>
       <div class="deskripsi">
         <h2>Deskripsi Orkes</h2>
