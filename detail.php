@@ -110,13 +110,13 @@
       <!-- TAMPILAN JENIS TIKET -->
       <?php
       // Query to fetch VIP ticket price
-      $query_vip = "SELECT CONCAT('Rp ', REPLACE(FORMAT(harga, 0), ',', '.'),',-') AS harga FROM tiket WHERE tipePaket='VIP' AND idKonser = $idKonser";
+      $query_vip = "SELECT CONCAT('Rp ', REPLACE(FORMAT(harga, 0), ',', '.'),',-') AS harga, namaPaket FROM tiket WHERE tipePaket='VIP' AND idKonser = $idKonser";
       $result_vip = mysqli_query($con, $query_vip);
       $row_vip = mysqli_fetch_assoc($result_vip);
       $harga_vip = $row_vip['harga'];
 
       // Query to fetch regular ticket price
-      $query_reguler = "SELECT CONCAT('Rp ', REPLACE(FORMAT(harga, 0), ',', '.'),',-') AS harga FROM tiket WHERE tipePaket='Reguler' AND idKonser = $idKonser";
+      $query_reguler = "SELECT CONCAT('Rp ', REPLACE(FORMAT(harga, 0), ',', '.'),',-') AS harga, namaPaket FROM tiket WHERE tipePaket='Reguler' AND idKonser = $idKonser";
       $result_reguler = mysqli_query($con, $query_reguler);
       $row_reguler = mysqli_fetch_assoc($result_reguler);
       $harga_reguler = $row_reguler['harga'];
@@ -126,7 +126,7 @@
         <table class="td1">
           <td>
             <div class="vip_header">
-              <h2>Presale VIP</h2>
+              <h2>Presale <?php echo $row_vip['namaPaket']?></h2>
               <h class="ket1">
                 <h2>On Sale</h2>
               </h>
@@ -143,7 +143,7 @@
         <table class="td2">
           <td>
             <div class="reguler_header">
-              <h2>Presale Reguler</h2>
+              <h2>Presale <?php echo $row_reguler['namaPaket']?></h2>
               <div class="ket2">
                 <h2>On Sale</h2>
               </div>
