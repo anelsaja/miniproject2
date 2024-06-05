@@ -185,10 +185,10 @@
               echo "<tr><td colspan='3'>Tidak ada tiket tersedia</td></tr>";
             }
             ?>
-            </table>
-            <input type="submit" value="Beli Tiket">
-          </form>
-        </div>        
+          </table>
+          <input type="submit" value="Beli Tiket">
+        </form>
+      </div>        
       </div>
       <div class="deskripsi">
         <h2>Deskripsi Orkes</h2>
