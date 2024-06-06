@@ -167,8 +167,6 @@
               <th>Ketersediaan</th>
             </tr>
             <?php
-            // Mengambil data tiket berdasarkan id konser
-
             $sql = "SELECT id, namaPaket, harga, stock FROM tiket WHERE idKonser = $idKonser";
             $result = $con->query($sql);
             if ($result->num_rows > 0) {
@@ -186,9 +184,9 @@
             }
             ?>
           </table>
-          <input type="submit" name="submit_pemesanan" value="Beli Tiket">
+          <input type="submit" name="submit_tiket" value="Beli Tiket">
         </form>
-      </div>        
+      </div>
       </div>
       <div class="deskripsi">
         <h2>Deskripsi Orkes</h2>

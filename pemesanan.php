@@ -1,5 +1,68 @@
 <?php
-include "koneksi.php"; // Sertakan file koneksi ke database
+session_start();
+include 'koneksi.php';
+
+if (!isset($_SESSION['jumlah_tiket'])) {
+    header("Location: detail.php");
+    exit();
+}
+
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_pemesanan'])) {
+    // Ambil data pemesan dari formulir
+    $nama_pemesan = mysqli_real_escape_string($con, $_POST['nama_pemesan']);
+    $email_pemesan = mysqli_real_escape_string($con, $_POST['email_pemesan']);
+    $no_hp_pemesan = mysqli_real_escape_string($con, $_POST['no_hp_pemesan']);
+    
+    // Query untuk menyimpan data pemesan ke dalam tabel data_pemesan
+    $query_simpan_pemesan = "INSERT INTO data_pemesan (nama, email, no_hp) VALUES ('$nama_pemesan', '$email_pemesan', '$no_hp_pemesan')";
+    
+    if ($con->query($query_simpan_pemesan) === TRUE) {
+        $last_insert_id = $con->insert_id; // Ambil ID terakhir yang dimasukkan
+
+        foreach ($_SESSION['jumlah_tiket'] as $id_tiket => $jumlah) {
+          $jumlah = intval($jumlah); // pastikan bilangan bulat
+          if ($jumlah > 0) {
+              // Memeriksa jenis tiket berdasarkan ID tiket
+              $query_get_tiket = "SELECT jenis FROM tiket WHERE id = $id_tiket";
+              $result_tiket = $con->query($query_get_tiket);
+              if ($result_tiket && $result_tiket->num_rows > 0) {
+                  $row_tiket = $result_tiket->fetch_assoc();
+                  $jenis_tiket = $row_tiket['jenis'];
+      
+                  // Query untuk menyimpan pembelian tiket
+                  $query_simpan_pembelian = "INSERT INTO data_pembelian_tiket (id_pemesan, id_tiket, jumlah_tiket) VALUES ($last_insert_id, $id_tiket, $jumlah)";
+                  if ($con->query($query_simpan_pembelian) === TRUE) {
+                      // Update stok berdasarkan jenis tiket
+                      if ($jenis_tiket == 'VIP') {
+                          $query_update_stok = "UPDATE tiket SET stock = stock - $jumlah WHERE id = $id_tiket";
+                      } else if ($jenis_tiket == 'Reguler') {
+                          $query_update_stok = "UPDATE tiket SET stock = stock - $jumlah WHERE id = $id_tiket";
+                      }
+                      
+                      // Jalankan query untuk mengupdate stok tiket
+                      if (!$con->query($query_update_stok)) {
+                          echo "Error updating stock: " . $con->error;
+                      }
+                  } else {
+                      echo "Error: " . $query_simpan_pembelian . "<br>" . $con->error;
+                  }
+              } else {
+                  echo "Error retrieving ticket information";
+              }
+          }
+      }
+      
+      
+        
+       // Simpan ID pemesan ke session untuk halaman konfirmasi
+       $_SESSION['last_insert_id'] = $last_insert_id;
+       // Tampilkan pesan konfirmasi atau informasi yang relevan
+       $pesan_sukses = "Data pemesan dan tiket berhasil disimpan! Jadi anda tidak perlu lagi mengisi form data pemesan.";
+      } else {
+          $pesan_error = "Error: " . $query_simpan_pemesan . "<br>" . $con->error;
+      }
+}
 
 ?>
 
@@ -66,19 +129,45 @@ include "koneksi.php"; // Sertakan file koneksi ke database
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
           <fieldset>
             <legend>Data Pemesan</legend>
+            <label for="nama"> Nama Lengkap: </label><br />
+            <input type="text" name="nama_pemesan" id="nama_pemesan" placeholder="Masukkan nama lengkap" required /><br />
+            <label for="email"> Email: </label><br />
+            <input type="email_pemesan" name="email_pemesan" id="emailID" placeholder="Masukkan email" required/><br />
+            <label for="no_hp"> No. HP: </label><br />
+            <input type="text" name="no_hp_pemesan" id="no_hp_pemesan" placeholder="Masukkan nomor HP" required /><br />
+          </fieldset>
+          <div class="input">
+            <input type="reset" value="Reset" />
+            <input type="submit" name="submit_pemesanan" value="Submit" />
+          </div>
+        </form>
+      </div>
+      <?php
+      if (isset($pesan_sukses)) {
+        echo "<p>$pesan_sukses</p>";
+      }
+
+      if (isset($pesan_error)) {
+          echo "<p>$pesan_error</p>";
+      }
+      ?>     
+      <div class="data_pemilik">
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+        <fieldset>
+            <legend>Data Pemesan</legend>
             <label for="nama"> Nama Lengkap </label><br />
             <input
               type="text"
-              name="nama"
-              id="namaID"
+              name="nama_pemilik"
+              id="nama_pemilik"
               placeholder="Masukkan nama lengkap"
               required
             />
             <br />
             <label for="email"> Email </label><br />
             <input
-              type="email"
-              name="email"
+              type="email_pemilik"
+              name="email_pemilik"
               id="emailID"
               placeholder="Masukkan email"
               required
@@ -87,54 +176,13 @@ include "koneksi.php"; // Sertakan file koneksi ke database
             <label for="no_hp"> No. HP </label><br />
             <input
               type="text"
-              name="no_hp"
-              id="no_hpID"
+              name="no_hp_pemilik"
+              id="no_hp_pemilik"
               placeholder="Masukkan nomor HP"
               required
             />
             <br />
           </fieldset>
-          <div class="input">
-            <input type="reset" value="Reset" />
-            <input type="submit" value="Submit" />
-          </div>
-        </form>
-      </div>
-      <div class="data_pemilik">
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-            <fieldset>
-                <legend>Data Pemilik Tiket</legend>
-                <?php foreach ($tiket as $t) : ?>
-                    <label for="nama_pemesan"> Nama Lengkap (ID Tiket: <?php echo $t['id']; ?>) </label><br />
-                    <input
-                            type="text"
-                            name="nama_pemesan"
-                            id="nama_pemesan_<?php echo $t['id']; ?>"
-                            placeholder="Masukkan nama lengkap"
-                            required
-                    />
-                    <br />
-                    <label for="email_pemesan"> Email </label><br />
-                    <input
-                            type="email"
-                            name="email_pemesan"
-                            id="email_pemesan_<?php echo $t['id']; ?>"
-                            placeholder="Masukkan email"
-                            required
-                    />
-                    <br />
-                    <label for="no_hp_pemesan"> No. HP </label><br />
-                    <input
-                            type="text"
-                            name="no_hp_pemesan"
-                            id="no_hp_pemesan_<?php echo $t['id']; ?>"
-                            placeholder="Masukkan nomor HP"
-                            required
-                    />
-                    <input type="hidden" name="jumlah_tiket[<?php echo $t['id']; ?>]" value="1" /> <!-- Jumlah tiket default -->
-                    <br /><br />
-                <?php endforeach; ?>
-            </fieldset>
             <div class="input">
                 <input type="reset" value="Reset" />
                 <input type="submit" name="submit_pemilik" value="Submit" />
