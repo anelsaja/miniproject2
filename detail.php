@@ -1,9 +1,9 @@
 <?php
   require "koneksi.php";
 
-  $nama = htmlspecialchars($_GET['nama']);
+  $nama = htmlspecialchars($_GET['id']);
   // echo $nama;
-  $queryorkes = mysqli_query($con, "SELECT id, img, title, DATE_FORMAT(tanggal, '%d %M %Y') as tanggal, lokasi, waktu, harga, imgorkes, deskripsi, syarat_dan_ketentuan, nama_orkes, sosial_media_link, artis, imgsosmed, imgpanggung FROM jadwal_konser WHERE title='$nama'");
+  $queryorkes = mysqli_query($con, "SELECT id, img, title, DATE_FORMAT(tanggal, '%d %M %Y') as tanggal, lokasi, waktu, harga, imgorkes, deskripsi, syarat_dan_ketentuan, nama_orkes, sosial_media_link, artis, imgsosmed, imgpanggung FROM jadwal_konser WHERE id='$nama'");
   
   $orkes = mysqli_fetch_array($queryorkes);
   $idKonser = $orkes['id'];
@@ -44,7 +44,7 @@
     </header>
     <h5>
       <a href="halamanutama.php">Halaman Utama</a> >
-      <a href="detail.php?nama=<?php echo $orkes['title']?>">Detail Orkes</a>
+      <a href="detail.php?id=<?php echo $orkes['id']?>">Detail Orkes</a>
     </h5>
     <div class="awalan">
       <div class="login">
@@ -177,7 +177,7 @@
                 <td>{$row['namaPaket']}</td>
                 <td>{$row['stock']}</td>
                 <td>  
-                <input type='number' name='jumlah_tiket[{$row['id']}]' min='0' max='{$row['stock']}'>     
+                <input type='number' name='jumlah_tiket[{$row['id']}]' min='0' max='{$row['stock']}' required>     
                 </td>         
               </tr>";   
               }
@@ -186,7 +186,7 @@
             }
             ?>
           </table>
-          <input type="submit" value="Beli Tiket">
+          <input type="submit" name="submit_pemesanan" value="Beli Tiket">
         </form>
       </div>        
       </div>

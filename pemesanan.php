@@ -1,3 +1,8 @@
+<?php
+include "koneksi.php"; // Sertakan file koneksi ke database
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -40,9 +45,9 @@
 
     <!-- ----Awalan---- -->
     <h5>
-      <a href="halamanutama.html">Halaman Utama</a> >
-      <a href="detail.html">Detail Orkes</a> >
-      <a href="pemesanan.html">Pemesanan</a>
+      <a href="halamanutama.php?nama=<?php echo $orkes['title']?>">Halaman Utama</a> >
+      <a href="detail.php?nama=<?php echo $orkes['title']?>">Detail Orkes</a> >
+      <a href="pemesanan.php?nama=<?php echo $orkes['title']?>">Pemesanan</a>
     </h5>
     <div class="awalan">
       <div class="login">
@@ -58,7 +63,7 @@
     <!-- DATA PEMBELI -->
     <section class="datapembeli">
       <div class="data_pemesan">
-        <form action="confirmasi.html" method="post">
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
           <fieldset>
             <legend>Data Pemesan</legend>
             <label for="nama"> Nama Lengkap </label><br />
@@ -88,16 +93,6 @@
               required
             />
             <br />
-            <label for="jenis_tiket"> Jenis Tiket </label><br />
-            <select name="Jenis Tiket">
-              <option disabled hidden selected>pilih tiket anda</option>
-              <option value="1">VIP</option>
-              <option value="2">Reguler</option>
-            </select>
-            <br />
-            <label for="jumlah_tiket"> Jumlah Tiket</label><br />
-            <input type="number" min="1" max="10" />
-            <br />
           </fieldset>
           <div class="input">
             <input type="reset" value="Reset" />
@@ -105,44 +100,47 @@
           </div>
         </form>
       </div>
-      <div class="data_pemesan">
-        <form action="confirmasi.html" method="post">
-          <fieldset>
-            <legend>Data Pemilik Tiket</legend>
-            <label for="nama"> Nama Lengkap </label><br />
-            <input
-              type="text"
-              name="nama"
-              id="namaID"
-              placeholder="Masukkan nama lengkap"
-              required
-            />
-            <br />
-            <label for="email"> Email </label><br />
-            <input
-              type="email"
-              name="email"
-              id="emailID"
-              placeholder="Masukkan email"
-              required
-            />
-            <br />
-            <label for="no_hp"> No. HP </label><br />
-            <input
-              type="text"
-              name="no_hp"
-              id="no_hpID"
-              placeholder="Masukkan nomor HP"
-              required
-            />
-            <br />
-          </fieldset>
-          <div class="input">
-            <input type="reset" value="Reset" />
-            <input type="submit" value="Submit" />
-          </div>
+      <div class="data_pemilik">
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+            <fieldset>
+                <legend>Data Pemilik Tiket</legend>
+                <?php foreach ($tiket as $t) : ?>
+                    <label for="nama_pemesan"> Nama Lengkap (ID Tiket: <?php echo $t['id']; ?>) </label><br />
+                    <input
+                            type="text"
+                            name="nama_pemesan"
+                            id="nama_pemesan_<?php echo $t['id']; ?>"
+                            placeholder="Masukkan nama lengkap"
+                            required
+                    />
+                    <br />
+                    <label for="email_pemesan"> Email </label><br />
+                    <input
+                            type="email"
+                            name="email_pemesan"
+                            id="email_pemesan_<?php echo $t['id']; ?>"
+                            placeholder="Masukkan email"
+                            required
+                    />
+                    <br />
+                    <label for="no_hp_pemesan"> No. HP </label><br />
+                    <input
+                            type="text"
+                            name="no_hp_pemesan"
+                            id="no_hp_pemesan_<?php echo $t['id']; ?>"
+                            placeholder="Masukkan nomor HP"
+                            required
+                    />
+                    <input type="hidden" name="jumlah_tiket[<?php echo $t['id']; ?>]" value="1" /> <!-- Jumlah tiket default -->
+                    <br /><br />
+                <?php endforeach; ?>
+            </fieldset>
+            <div class="input">
+                <input type="reset" value="Reset" />
+                <input type="submit" name="submit_pemilik" value="Submit" />
+            </div>
         </form>
-      </div>
+    </div>
     </section>
 
     <!-- ----Bukti Transaksi---- -->

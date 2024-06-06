@@ -88,7 +88,7 @@
                       <img src="img/' . $konser['img'] . '" alt="' . $konser['title'] . '" />
                   </div>
                   <div class="isi">
-                      <a href="detail.php?nama=' . $konser['title'] . '">
+                      <a href="detail.php?id=' . $konser['id'] . '">
                           <h2>' . $konser['title'] . '</h2>
                       </a>
                       <table>
@@ -143,7 +143,7 @@
                 </tr>
               </table>
               <div class="detail">
-                <a href="detail.php?nama=<?php echo $data['title']?>">Detail</a>
+                <a href="detail.php?id=<?php echo $data['id']?>">Detail</a>
               </div>
             </div>
           </div>
@@ -182,7 +182,7 @@
                 </tr>
               </table>
               <div class="detail">
-                <a href="detail.php?nama=<?php echo $data2['title']?>">Detail</a>
+                <a href="detail.php?id=<?php echo $data2['id']?>">Detail</a>
               </div>
             </div>
           </div>
