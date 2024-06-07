@@ -160,7 +160,7 @@
       <!-- TAMPILAN PAKET TIKET -->
       <div class="paket">
         <h1>Paket Tiket Konser</h1>
-        <form action="pemesanan.php" method="post">
+        <form action="pemesanan1.php" method="post">
           <table>
             <tr>
               <th>Nama Paket</th>
