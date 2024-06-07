@@ -49,7 +49,7 @@
     $searchDate = "%{$cari}%";
 
     // Query pencarian
-    $querycari = $con->prepare("SELECT id, img, title, tanggal, lokasi, waktu, CONCAT('Rp ', REPLACE(FORMAT(harga, 0), ',', '.'),',-') AS harga FROM jadwal_konser WHERE title LIKE ? OR lokasi LIKE ? OR tanggal LIKE ?");
+    $querycari = $con->prepare("SELECT id, img, title, tanggal, lokasi, waktu, CONCAT('Rp ', REPLACE(FORMAT(harga, 0), ',', '.'),',-') AS harga FROM jadwal_konser WHERE title LIKE ? OR lokasi LIKE ? OR tanggal LIKE ? ORDER BY tanggal DESC");
     $querycari->bind_param("sss", $searchTitle, $searchLocation, $searchDate);
 
     // Eksekusi query
