@@ -122,39 +122,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_pemesanan'])) {
     </div>
 
     <section class="datapembeli">
-  <?php
-  // Tampilkan formulir hanya jika belum ada pesan sukses atau pesan error
-  if (!isset($pesan_sukses) && !isset($pesan_error)) {
-  ?>
-  <div class="data_pemesan">
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-      <fieldset>
-        <legend>Data Pemesan</legend>
-        <label for="nama"> Nama Lengkap: </label><br />
-        <input type="text" name="nama_pemesan" id="nama_pemesan" placeholder="Masukkan nama lengkap" required /><br />
-        <label for="email"> Email: </label><br />
-        <input type="email_pemesan" name="email_pemesan" id="emailID" placeholder="Masukkan email" required/><br />
-        <label for="no_hp"> No. HP: </label><br />
-        <input type="text" name="no_hp_pemesan" id="no_hp_pemesan" placeholder="Masukkan nomor HP" required /><br />
-      </fieldset>
-      <div class="input">
-        <input type="reset" value="Reset" />
-        <input type="submit" name="submit_pemesanan" value="Submit" />
+      <?php
+      // Tampilkan formulir hanya jika belum ada pesan sukses atau pesan error
+      if (!isset($pesan_sukses) && !isset($pesan_error)) {
+      ?>
+      <div class="data_pemesan">
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+          <fieldset>
+            <legend>Data Pemesan</legend>
+            <label for="nama"> Nama Lengkap: </label><br />
+            <input type="text" name="nama_pemesan" id="nama_pemesan" placeholder="Masukkan nama lengkap" required /><br />
+            <label for="email"> Email: </label><br />
+            <input type="email_pemesan" name="email_pemesan" id="emailID" placeholder="Masukkan email" required/><br />
+            <label for="no_hp"> No. HP: </label><br />
+            <input type="text" name="no_hp_pemesan" id="no_hp_pemesan" placeholder="Masukkan nomor HP" required /><br />
+          </fieldset>
+          <div class="input">
+            <input type="reset" value="Reset" />
+            <input type="submit" name="submit_pemesanan" value="Submit" />
+          </div>
+        </form>
       </div>
-    </form>
-  </div>
-  <?php
-  }
-  // Tampilkan pesan sukses jika ada
-  if (isset($pesan_sukses)) {
-    echo "<p class='message-success'>$pesan_sukses</p>";
-  }
-  // Tampilkan pesan error jika ada
-  if (isset($pesan_error)) {
-    echo "<p class='message-error'>$pesan_error</p>";
-  }
-  ?> 
-</section>
+      <?php
+      }
+      // Tampilkan pesan sukses jika ada
+      if (isset($pesan_sukses)) {
+        echo "<p class='message-success'>$pesan_sukses</p>";
+      }
+      // Tampilkan pesan error jika ada
+      if (isset($pesan_error)) {
+        echo "<p class='message-error'>$pesan_error</p>";
+      }
+      ?>
+    </section>
 
 
     <!-- ----Bukti Transaksi---- -->
