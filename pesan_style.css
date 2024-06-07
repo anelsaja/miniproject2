@@ -140,12 +140,24 @@ legend {
   color: white;
 }
 
-.pesan_sukses {
-  background-color: #d4edda;
-  color: #155724;
+/* CSS untuk pesan sukses */
+.message-success {
+  background-color: #d4edda; /* Warna latar belakang hijau muda */
+  color: #155724; /* Warna teks hijau gelap */
   padding: 10px;
-  border: 1px solid #c3e6cb;
-  margin-bottom: 15px;
+  margin: 10px 0;
+  border: 1px solid #c3e6cb; /* Border hijau untuk membedakan */
+  border-radius: 5px;
+}
+
+/* CSS untuk pesan error */
+.message-error {
+  background-color: #f8d7da; /* Warna latar belakang merah muda */
+  color: #721c24; /* Warna teks merah gelap */
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #f5c6cb; /* Border merah untuk membedakan */
+  border-radius: 5px;
 }
 
 /* ----Bukti transaksi---- */
