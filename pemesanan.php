@@ -92,7 +92,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_pemesanan'])) {
   // Simpan ID pemesan ke session untuk halaman konfirmasi
   $_SESSION['last_insert_id'] = $last_insert_id;
   // Tampilkan pesan konfirmasi atau informasi yang relevan
-  $pesan_sukses = "Data pemesan dan tiket berhasil disimpan!";
+  $pesan_sukses = "Data pemesan berhasil disimpan!";
   } else {
     $pesan_error = "Error: " . $query_simpan_pemesan . "<br>" . $con->error;
   }
@@ -195,37 +195,46 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_pemesanan'])) {
 
       // Ambil ID pemesan dari session atau sesuai dengan cara Anda
       $id_pemesan = $_SESSION['last_insert_id']; // Misalnya, ini adalah cara untuk mendapatkan ID pemesan dari session
-
-      foreach ($_SESSION['jumlah_tiket'] as $id_tiket => $jumlah) {
-      // Query untuk mendapatkan informasi paket tiket berdasarkan id_tiket
-        $query_info_tiket = "SELECT namaPaket, tipePaket FROM tiket WHERE id = $id_tiket";
-        $result_info_tiket = $con->query($query_info_tiket);
-        if ($result_info_tiket && $result_info_tiket->num_rows > 0) {
-          $row_info_tiket = $result_info_tiket->fetch_assoc();
-          $tipe_paket = $row_info_tiket['tipePaket'];
-          // Tampilkan form berdasarkan jenis tiket (VIP atau Reguler)
-          for ($i = 1; $i <= $jumlah; $i++) {
-            echo "<fieldset>";
-            echo "<legend>Data Pemilik Tiket $tipe_paket ke-$i</legend>";
-            echo "<input type='hidden' name='id_tiket[]' value='$id_tiket'>"; // Hidden input untuk ID tiket
-            echo "<label for='nama_pemilik_$i'>Nama Pemilik Tiket:</label><br />";
-            echo "<input type='text' name='nama_pemilik[$id_tiket][$i]' id='nama_pemilik_$i' placeholder='Masukkan nama pemilik tiket' required /><br />";
-            echo "<label for='email_pemilik_$i'>Email:</label><br />";
-            echo "<input type='email' name='email_pemilik[$id_tiket][$i]' id='email_pemilik_$i' placeholder='Masukkan email pemilik tiket' required /><br />";
-            echo "<label for='no_hp_pemilik_$i'>No. HP:</label><br />";
-            echo "<input type='text' name='no_hp_pemilik[$id_tiket][$i]' id='no_hp_pemilik_$i' placeholder='Masukkan nomor HP pemilik tiket' required /><br />";
-            echo "</fieldset>";
+      if (!isset($sukses) && !isset($error)) {
+        foreach ($_SESSION['jumlah_tiket'] as $id_tiket => $jumlah) {
+        // Query untuk mendapatkan informasi paket tiket berdasarkan id_tiket
+          $query_info_tiket = "SELECT namaPaket, tipePaket FROM tiket WHERE id = $id_tiket";
+          $result_info_tiket = $con->query($query_info_tiket);
+          if ($result_info_tiket && $result_info_tiket->num_rows > 0) {
+            $row_info_tiket = $result_info_tiket->fetch_assoc();
+            $tipe_paket = $row_info_tiket['tipePaket'];
+            // Tampilkan form berdasarkan jenis tiket (VIP atau Reguler)
+            for ($i = 1; $i <= $jumlah; $i++) {
+              echo "<fieldset>";
+              echo "<legend>Data Pemilik Tiket $tipe_paket ke-$i</legend>";
+              echo "<input type='hidden' name='id_tiket[]' value='$id_tiket'>"; // Hidden input untuk ID tiket
+              echo "<label for='nama_pemilik_$i'>Nama Pemilik Tiket:</label><br />";
+              echo "<input type='text' name='nama_pemilik[$id_tiket][$i]' id='nama_pemilik_$i' placeholder='Masukkan nama pemilik tiket' required /><br />";
+              echo "<label for='email_pemilik_$i'>Email:</label><br />";
+              echo "<input type='email' name='email_pemilik[$id_tiket][$i]' id='email_pemilik_$i' placeholder='Masukkan email pemilik tiket' required /><br />";
+              echo "<label for='no_hp_pemilik_$i'>No. HP:</label><br />";
+              echo "<input type='text' name='no_hp_pemilik[$id_tiket][$i]' id='no_hp_pemilik_$i' placeholder='Masukkan nomor HP pemilik tiket' required /><br />";
+              echo "</fieldset>";
+            }
+          } else {
+            echo "Error retrieving ticket information";
           }
-        } else {
-          echo "Error retrieving ticket information";
         }
+        echo "<div class='input'>";
+          echo "<input type='reset' value='Reset' />";
+          echo "<input type='submit' name='submit_pemilik' value='Submit Data Pemilik' />";
+        echo "</div>";
+        echo "</form>";
+        echo "</div>";
       }
-      echo "<div class='input'>";
-      echo "<input type='reset' value='Reset' />";
-      echo "<input type='submit' name='submit_pemilik' value='Submit Data Pemilik' />";
-      echo "</div>";
-      echo "</form>";
-      echo "</div>";
+      // Tampilkan pesan sukses jika ada
+      if (isset($sukses)) {
+        echo "<p class='pesan_sukses'>$sukses</p>";
+      }
+      // Tampilkan pesan error jika ada
+      if (isset($error)) {
+        echo "<p class='pesan_gagal'>$error</p>";
+      }
 
       // Proses untuk menyimpan data pemilik tiket setelah pengguna mengirimkan formulir
       if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_pemilik'])) {
@@ -241,10 +250,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_pemesanan'])) {
               $query_simpan_pemilik = "INSERT INTO data_pemilik_tiket (id_pemesan, id_tiket, jenis_tiket, nama_pemilik, email_pemilik, no_hp_pemilik) VALUES ($id_pemesan, $id_tiket, '$tipe_paket', '$nama_pemilik', '$email_pemilik', '$no_hp_pemilik')";
               if ($con->query($query_simpan_pemilik) === TRUE) {
                 // Tampilkan pesan sukses atau lakukan tindakan lanjutan setelah penyimpanan berhasil
-                $pesan_sukses = "Data pemilik tiket berhasil disimpan!";
+                $sukses = "Data pemilik setiap tiket berhasil disimpan!";
               } else {
-                // Tampilkan pesan error jika terjadi kesalahan saat menyimpan
-                echo "Error: " . $query_simpan_pemilik . "<br>" . $con->error;
+                $error = "Error: " . $query_simpan_pemesan . "<br>" . $con->error;
               }
             } else {
               // Tampilkan pesan error jika variabel $_POST tidak ada
@@ -253,7 +261,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_pemesanan'])) {
           }
         }
       }
-      $con->close();
       ?>
     </section>
     <!-- ----Bukti Transaksi---- -->
