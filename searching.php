@@ -96,9 +96,7 @@
 
         }
     } else {
-        echo "Tidak ada hasil yang ditemukan untuk pencarian Anda.";
-        // Set input pencarian menjadi kosong
-        $cari = '';
+        echo "<div class='gagal'>Tidak ada hasil yang ditemukan untuk pencarian Anda.</div>";
     }
 
     // Tutup statement

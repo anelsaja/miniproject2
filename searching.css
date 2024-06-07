@@ -138,6 +138,16 @@ h3 {
 .detail a:hover {
   background-color: #139100;
 }
+.gagal {
+  padding: 10px;
+  background-color: #f8d7da; /* Warna latar belakang merah muda */
+  color: #721c24; /* Warna teks merah tua */
+  font-weight: bolder;
+  border: 1px solid #f5c6cb; /* Border merah muda */
+  border-radius: 5px; /* Sudut bulat */
+  margin-top: 20px; /* Jarak atas */
+  text-align: center; /* Teks rata tengah */
+}
 
 /* ----Footer---- */
 footer {
