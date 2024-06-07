@@ -7,6 +7,43 @@ if (!isset($_SESSION['jumlah_tiket'])) {
   exit();
 }
 
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  if (isset($_POST['submit_tiket'])) {
+      // Proses saat tombol submit tiket diklik
+
+      // Dapatkan jumlah tiket yang dipilih dari form
+      $jumlah_tiket = $_POST['jumlah_tiket'];
+
+      // Menyimpan data pemesanan
+      $total_harga = 0;
+      $pemesanan = [];
+      $total_tiket = 0;
+
+      foreach ($jumlah_tiket as $id_tiket => $jumlah) {
+          if ($jumlah > 0) {
+              // Ambil informasi tiket dari database
+              $sql = "SELECT namaPaket, harga FROM tiket WHERE id = $id_tiket";
+              $result = $con->query($sql);
+              if ($result->num_rows > 0) {
+                  $row = $result->fetch_assoc();
+                  $namaPaket = $row['namaPaket'];
+                  $harga = $row['harga'];
+                  $total_harga += $harga * $jumlah;
+                  $total_tiket += $jumlah;
+
+                  // Simpan informasi pemesanan
+                  $pemesanan[] = [
+                      'id' => $id_tiket,
+                      'namaPaket' => $namaPaket,
+                      'jumlah' => $jumlah,
+                      'harga' => $harga,
+                      'total' => $harga * $jumlah
+                  ];
+              }
+          }
+      }
+    }
+  }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_pemesanan'])) {
   // Ambil data pemesan dari formulir
@@ -153,12 +190,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_pemesanan'])) {
       }
       ?>
       <?php
-      // Tampilkan formulir untuk data pemilik tiket sesuai dengan jumlah tiket yang telah diinput
       echo "<div class='data_pemilik'>";
       echo "<form action='" . htmlspecialchars($_SERVER["PHP_SELF"]) . "' method='post'>";
 
+      // Ambil ID pemesan dari session atau sesuai dengan cara Anda
+      $id_pemesan = $_SESSION['last_insert_id']; // Misalnya, ini adalah cara untuk mendapatkan ID pemesan dari session
+
       foreach ($_SESSION['jumlah_tiket'] as $id_tiket => $jumlah) {
-        // Query untuk mendapatkan informasi paket tiket berdasarkan id_tiket
+      // Query untuk mendapatkan informasi paket tiket berdasarkan id_tiket
         $query_info_tiket = "SELECT namaPaket, tipePaket FROM tiket WHERE id = $id_tiket";
         $result_info_tiket = $con->query($query_info_tiket);
         if ($result_info_tiket && $result_info_tiket->num_rows > 0) {
@@ -190,34 +229,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_pemesanan'])) {
 
       // Proses untuk menyimpan data pemilik tiket setelah pengguna mengirimkan formulir
       if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_pemilik'])) {
-        // Loop untuk menyimpan setiap data pemilik tiket
-        foreach ($_SESSION['jumlah_tiket'] as $id_tiket => $jumlah) {
-          for ($i = 1; $i <= $jumlah; $i++) {
+      // Loop untuk menyimpan setiap data pemilik tiket
+        foreach ($_POST['id_tiket'] as $id_tiket) {
+          foreach ($_POST['nama_pemilik'][$id_tiket] as $i => $nama_pemilik) {
             // Periksa apakah variabel $_POST ada sebelum mengaksesnya
-            if (isset($_POST["nama_pemilik_$id_tiket"][$i], $_POST["email_pemilik_$id_tiket"][$i], $_POST["no_hp_pemilik_$id_tiket"][$i])) {
-              $nama_pemilik = mysqli_real_escape_string($con, $_POST["nama_pemilik_$id_tiket"][$i]);
-              $email_pemilik = mysqli_real_escape_string($con, $_POST["email_pemilik_$id_tiket"][$i]);
-              $no_hp_pemilik = mysqli_real_escape_string($con, $_POST["no_hp_pemilik_$id_tiket"][$i]);
+            if (isset($_POST['nama_pemilik'][$id_tiket][$i], $_POST['email_pemilik'][$id_tiket][$i], $_POST['no_hp_pemilik'][$id_tiket][$i])) {
+              $nama_pemilik = mysqli_real_escape_string($con, $_POST['nama_pemilik'][$id_tiket][$i]);
+              $email_pemilik = mysqli_real_escape_string($con, $_POST['email_pemilik'][$id_tiket][$i]);
+              $no_hp_pemilik = mysqli_real_escape_string($con, $_POST['no_hp_pemilik'][$id_tiket][$i]);
               // Query untuk menyimpan data pemilik tiket ke dalam tabel data_pemilik_tiket
-              $query_simpan_pemilik = "INSERT INTO data_pemilik_tiket (id_pemesan, id_tiket, jenis_tiket, nama_pemilik, email_pemilik, no_hp_pemilik,) VALUES ($id_pemesan, $id_tiket, '$tipe_paket', '$nama_pemilik', '$email_pemilik', '$no_hp_pemilik')";
+              $query_simpan_pemilik = "INSERT INTO data_pemilik_tiket (id_pemesan, id_tiket, jenis_tiket, nama_pemilik, email_pemilik, no_hp_pemilik) VALUES ($id_pemesan, $id_tiket, '$tipe_paket', '$nama_pemilik', '$email_pemilik', '$no_hp_pemilik')";
               if ($con->query($query_simpan_pemilik) === TRUE) {
                 // Tampilkan pesan sukses atau lakukan tindakan lanjutan setelah penyimpanan berhasil
                 $pesan_sukses = "Data pemilik tiket berhasil disimpan!";
               } else {
-              // Tampilkan pesan error jika terjadi kesalahan saat menyimpan
-              echo "kesalahan";
+                // Tampilkan pesan error jika terjadi kesalahan saat menyimpan
+                echo "Error: " . $query_simpan_pemilik . "<br>" . $con->error;
               }
             } else {
-            // Tampilkan pesan error jika variabel $_POST tidak ada
-            echo "kesalahan";
+              // Tampilkan pesan error jika variabel $_POST tidak ada
+              echo "Form input tidak lengkap";
             }
           }
         }
       }
+      $con->close();
       ?>
     </section>
-
-
     <!-- ----Bukti Transaksi---- -->
     <section class="kwitansi">
       <h3>Rincian Pesanan</h3>
