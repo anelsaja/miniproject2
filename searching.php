@@ -11,12 +11,12 @@
     </div>
     <header>
       <div class="logo1">
-        <a href="#">
+        <a href="halamanutama.php">
           <img src="img/logo.png" alt="logo" />
         </a>
       </div>
       <div class="website">
-        <a href="#">
+        <a href="halamanutama.php">
           <h1>OJINK</h1>
         </a>
       </div>
