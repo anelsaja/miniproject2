@@ -29,12 +29,10 @@
         </a>
       </div>
       <div class="cari">
-        <input
-          type="text"
-          placeholder="Cari Event, Orkes, dll"
-          class="inputcari"
-        />
-        <input type="date" class="inputcari" />
+        <form method="GET" action="searching.php">
+          <input type="text" id="cari" name="inputan" value="<?php if (isset($_GET['cari'])) { echo htmlspecialchars($_GET['cari']); } ?>" placeholder="Cari Konser, Lokasi, dan tanggal...">
+          <button type="submit">Cari</button>
+        </form>
       </div>
       <div class="login">
         <a href="#">LOGIN</a>

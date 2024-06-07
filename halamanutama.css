@@ -31,12 +31,28 @@ header {
   color: white;
 }
 .cari {
-  margin-left: 59rem;
+  margin-left: 55rem;
 }
-.inputcari {
-  padding: 10px;
-  border: 1px solid;
-  border-radius: 5px;
+.cari input[type="text"] {
+  padding: 10px; /* Padding di dalam input text */
+  width: 300px; /* Lebar input text */
+  font-size: 16px; /* Ukuran font */
+  border: 1px solid #ccc; /* Garis tepi dengan warna abu-abu */
+  border-radius: 4px; /* Sudut lengkung tepi */
+}
+
+.cari button {
+  padding: 10px 20px; /* Padding pada tombol */
+  font-size: 16px; /* Ukuran font */
+  background-color: #0bb405; /* Warna latar belakang tombol biru */
+  color: #fff; /* Warna teks putih */
+  border: none; /* Tanpa garis tepi */
+  border-radius: 4px; /* Sudut lengkung tepi */
+  cursor: pointer; /* Tanda kursor pointer saat di atas tombol */
+}
+
+.cari button:hover {
+  background-color: #0056b3; /* Efek warna latar belakang saat hover */
 }
 .login {
   margin-left: 1rem;
