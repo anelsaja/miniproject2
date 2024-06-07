@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hasil Pencarian</title>
+    <title>Seluruh Orkes</title>
     <link rel="icon" href="img/logo.png" />
-    <link rel="stylesheet" href="searching.css">
+    <link rel="stylesheet" href="full.css">
 </head>
 <body>
     </div>
@@ -21,8 +21,8 @@
         </a>
       </div>
       <div class="cari">
-        <form method="GET">
-          <input type="text" id="cari" name="cari" value="<?php echo isset($_GET['cari']) ? htmlspecialchars($_GET['cari']) : ''; ?>" placeholder="Masukkan kata kunci pencarian">
+        <form method="GET" action="searching.php">
+          <input type="text" id="cari" name="cari" value="<?php echo isset($_GET['cari']) ? htmlspecialchars($_GET['cari']) : ''; ?>" placeholder="Cari Orkes, Tanggal, dan Lokasi ...">
           <button type="submit">Cari</button>
         </form>
       </div>
@@ -58,7 +58,6 @@
     $result = $querycari->get_result();
 
     if ($result->num_rows > 0) {
-      echo "<h3>Hasil Pencarian:</h3>";
         while ($row = $result->fetch_assoc()) {
             echo '<div class="container-content">';
             echo '  <div class="pemaindor">';

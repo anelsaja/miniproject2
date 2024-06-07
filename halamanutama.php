@@ -190,7 +190,7 @@
         ?>
       </div>
       <div class="seemore">
-        <a href="detail.html">Lihat Lainnya</a>
+        <a href="full.php">Lihat Lainnya</a>
       </div>
     </section>
     <footer>
