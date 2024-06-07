@@ -30,7 +30,7 @@
       </div>
       <div class="cari">
         <form method="GET" action="searching.php">
-          <input type="text" id="cari" name="inputan" value="<?php if (isset($_GET['cari'])) { echo htmlspecialchars($_GET['cari']); } ?>" placeholder="Cari Konser, Lokasi, dan tanggal...">
+          <input type="text" id="cari" name="cari" value="<?php echo isset($_GET['cari']) ? htmlspecialchars($_GET['cari']) : ''; ?>" placeholder="Cari Orkes, Tanggal, dan Lokasi ...">
           <button type="submit">Cari</button>
         </form>
       </div>

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pencarian Jadwal Konser</title>
+    <link rel="icon" href="img/logo.png" />
     <link rel="stylesheet" href="searching.css">
 </head>
 <body>
@@ -19,18 +20,22 @@
           <h1>OJINK</h1>
         </a>
       </div>
+      <div class="cari">
+        <form method="GET">
+          <input type="text" id="cari" name="cari" value="<?php echo isset($_GET['cari']) ? htmlspecialchars($_GET['cari']) : ''; ?>" placeholder="Masukkan kata kunci pencarian">
+          <button type="submit">Cari</button>
+        </form>
+      </div>
       <div class="login">
         <a href="#">LOGIN</a>
       </div>
     </header>
-    <div class="cari">
-        <form method="GET">
-            <label for="cari">Pencarian: </label>
-            <input type="text" id="cari" name="cari" value="<?php if (isset($_GET['cari'])) { echo htmlspecialchars($_GET['cari']); } ?>">
-            <button type="submit">Cari</button>
-        </form>
+    <div class="awalan">
+      <div class="login">
+        <a href="halamanutama.php">Kembali</a>
+      </div>
     </div>
-    <div>
+    
     <?php
     // Include file koneksi
     include "koneksi.php";
@@ -44,7 +49,7 @@
     $searchDate = "%{$cari}%";
 
     // Query pencarian
-    $querycari = $con->prepare("SELECT * FROM jadwal_konser WHERE title LIKE ? OR lokasi LIKE ? OR tanggal LIKE ?");
+    $querycari = $con->prepare("SELECT id, img, title, tanggal, lokasi, waktu, CONCAT('Rp ', REPLACE(FORMAT(harga, 0), ',', '.'),',-') AS harga FROM jadwal_konser WHERE title LIKE ? OR lokasi LIKE ? OR tanggal LIKE ?");
     $querycari->bind_param("sss", $searchTitle, $searchLocation, $searchDate);
 
     // Eksekusi query
@@ -53,19 +58,47 @@
     $result = $querycari->get_result();
 
     if ($result->num_rows > 0) {
+      echo "<h3>Hasil Pencarian:</h3>";
         while ($row = $result->fetch_assoc()) {
-            echo "<div>";
-            echo "<img src='img/" . htmlspecialchars($row['img']) . "' alt='Image' width='250'><br>";
-            echo "<strong>Judul:</strong> " . htmlspecialchars($row['title']) . "<br>";
-            echo "<strong>Nama Orkes:</strong> " . htmlspecialchars($row['nama_orkes']) . "<br>";
-            echo "<strong>Tanggal:</strong> " . htmlspecialchars($row['tanggal']) . "<br>";
-            echo "<strong>Lokasi:</strong> " . htmlspecialchars($row['lokasi']) . "<br>";
-            echo "<strong>Waktu:</strong> " . htmlspecialchars($row['waktu']) . "<br>";
-            echo "<strong>Harga:</strong> " . htmlspecialchars($row['harga']) . "<br>";
-            echo "</div><hr>";
+            echo '<div class="container-content">';
+            echo '  <div class="pemaindor">';
+            echo '    <div class="kotak">';
+            echo '      <div class="poster">';
+            echo '        <img src="img/' . htmlspecialchars($row['img']) . '" alt="' . htmlspecialchars($row['img']) . '" />';
+            echo '      </div>';
+            echo '      <div class="isi">';
+            echo '        <h2>' . htmlspecialchars($row['title']) . '</h2>';
+            echo '        <table>';
+            echo '          <tr>';
+            echo '            <td>Tanggal</td>';
+            echo '            <td>: ' . date('d F Y', strtotime($row['tanggal'])) . '</td>';
+            echo '          </tr>';
+            echo '          <tr>';
+            echo '            <td>Lokasi</td>';
+            echo '            <td>: ' . htmlspecialchars($row['lokasi']) . '</td>';
+            echo '          </tr>';
+            echo '          <tr>';
+            echo '            <td>Waktu</td>';
+            echo '            <td>: ' . htmlspecialchars($row['waktu']) . '</td>';
+            echo '          </tr>';
+            echo '          <tr>';
+            echo '            <td class="harga">Harga Mulai</td>';
+            echo '            <td class="harga">: ' . htmlspecialchars($row['harga']) . '</td>';
+            echo '          </tr>';
+            echo '        </table>';
+            echo '        <div class="detail">';
+            echo '          <a href="detail.php?id=' . htmlspecialchars($row['id']) . '">Detail</a>';
+            echo '        </div>';
+            echo '      </div>';
+            echo '    </div>';
+            echo '  </div>';
+            echo '</div>';
+
         }
     } else {
         echo "Tidak ada hasil yang ditemukan untuk pencarian Anda.";
+        // Set input pencarian menjadi kosong
+        $cari = '';
     }
 
     // Tutup statement
@@ -73,7 +106,8 @@
 
     // Tutup koneksi
     $con->close();
-?>
+    ?>
+
 
 
 
