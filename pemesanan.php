@@ -194,7 +194,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_pemesanan'])) {
       echo "<form action='" . htmlspecialchars($_SERVER["PHP_SELF"]) . "' method='post'>";
 
       // Ambil ID pemesan dari session atau sesuai dengan cara Anda
-      $id_pemesan = $_SESSION['last_insert_id']; // Misalnya, ini adalah cara untuk mendapatkan ID pemesan dari session
+      // $id_pemesan = $_SESSION['last_insert_id']; // Misalnya, ini adalah cara untuk mendapatkan ID pemesan dari session
       if (!isset($sukses) && !isset($error)) {
         foreach ($_SESSION['jumlah_tiket'] as $id_tiket => $jumlah) {
         // Query untuk mendapatkan informasi paket tiket berdasarkan id_tiket
@@ -247,7 +247,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_pemesanan'])) {
               $email_pemilik = mysqli_real_escape_string($con, $_POST['email_pemilik'][$id_tiket][$i]);
               $no_hp_pemilik = mysqli_real_escape_string($con, $_POST['no_hp_pemilik'][$id_tiket][$i]);
               // Query untuk menyimpan data pemilik tiket ke dalam tabel data_pemilik_tiket
-              $query_simpan_pemilik = "INSERT INTO data_pemilik_tiket (id_pemesan, id_tiket, jenis_tiket, nama_pemilik, email_pemilik, no_hp_pemilik) VALUES ($id_pemesan, $id_tiket, '$tipe_paket', '$nama_pemilik', '$email_pemilik', '$no_hp_pemilik')";
+              $query_simpan_pemilik = "INSERT INTO data_pemilik_tiket (id_pemesan, id_tiket, nama_pemilik, email_pemilik, no_hp_pemilik) VALUES ($id_pemesan, $id_tiket', '$nama_pemilik', '$email_pemilik', '$no_hp_pemilik')";
               if ($con->query($query_simpan_pemilik) === TRUE) {
                 // Tampilkan pesan sukses atau lakukan tindakan lanjutan setelah penyimpanan berhasil
                 $sukses = "Data pemilik setiap tiket berhasil disimpan!";
@@ -263,41 +263,90 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_pemesanan'])) {
       }
       ?>
     </section>
-    <!-- ----Bukti Transaksi---- -->
-    <section class="kwitansi">
-      <h3>Rincian Pesanan</h3>
-      <div class="poster">
-        <img src="img/konser 1.jpeg" alt="poster 1" />
-        <h4>Family Plat G</h4>
-      </div>
-      <div class="voucher">
-        <h4>Tiket</h4>
-        <p>
-          REGULER x1 <br />
-          Rp 20.000,-
-        </p>
-        <input
-          type="text"
-          name="voucher"
-          id="voucher"
-          placeholder="Masukkan kode voucher"
-        />
-        <input class="terapkan" type="submit" value="Terapkan" />
-      </div>
-      <div class="rincian">
-        <p>Subtotal:</p>
-        <p>20.000,-</p>
-        <p>Biaya Layanan:</p>
-        <p>Rp 5.000,-</p>
-      </div>
-      <div class="total">
-        <p>
-          Total: <br />
-          Rp 25.000,-
-        </p>
-        <a href="confirmasi.html">Konfirmasi</a>
-      </div>
-    </section>
+    <?php
+// Memastikan last_insert_id ada di session
+if (!isset($_SESSION['last_insert_id'])) {
+    echo "ID pemesan tidak ditemukan.";
+    exit();
+}
+
+$id_pemesan = intval($_SESSION['last_insert_id']); // Konversi ke integer untuk keamanan
+
+// Query untuk mengambil data pesanan berdasarkan ID pemesan
+$query_pesanan = "
+    SELECT dp.nama, dp.email, dp.no_hp, dbt.id_tiket, dbt.jumlah_tiket, t.namaPaket, t.harga, jk.title as nama, jk.img AS gambar
+    FROM data_pemesan dp 
+    JOIN data_pembelian_tiket dbt ON dp.id = dbt.id_pemesan 
+    JOIN tiket t ON dbt.id_tiket = t.id 
+    JOIN jadwal_konser jk ON t.idKonser = jk.id 
+    WHERE dp.id = $id_pemesan
+";
+
+$result_pesanan = $con->query($query_pesanan);
+
+if ($result_pesanan->num_rows > 0) {
+    // Inisialisasi subtotal dan biaya layanan
+    $subtotal = 0;
+    $biaya_layanan = 5000;
+
+    echo '<section class="kwitansi">';
+    echo '<h3>Rincian Pesanan</h3>';
+
+    // Ambil data pertama untuk gambar poster (jika ada)
+    $row = $result_pesanan->fetch_assoc();
+    $namakonser = $row['nama'];
+    $gambar = $row['gambar']; // Mengambil data gambar dari kolom 'gambar'
+
+    echo '<div class="poster">';
+    echo "<img src='img/$gambar' alt='poster' />";
+    echo "<h4>$namakonser</h4>";
+    echo '</div>';
+
+    echo '<div class="voucher">';
+    echo '<h4>Tiket</h4>';
+
+    // Sekarang menampilkan rincian tiket
+    do {
+        $nama_paket = $row['namaPaket'];
+        $jumlah_tiket = $row['jumlah_tiket'];
+        $harga = $row['harga'];
+        $total_harga = $jumlah_tiket * $harga;
+        $subtotal += $total_harga;
+
+        echo "<p>$nama_paket x $jumlah_tiket <br />Rp " . number_format($total_harga, 0, ',', '.') . ",-</p>";
+    } while ($row = $result_pesanan->fetch_assoc());
+
+    echo '<input type="text" name="voucher" id="voucher" placeholder="Masukkan kode voucher" />';
+    echo '<input class="terapkan" type="submit" value="Terapkan" />';
+    echo '</div>'; // Penutup div class="voucher"
+
+    echo '<div class="rincian">';
+    echo '<p>Subtotal:</p>';
+    echo "<p>Rp " . number_format($subtotal, 0, ',', '.') . ",-</p>";
+    echo '<p>Biaya Layanan:</p>';
+    echo "<p>Rp " . number_format($biaya_layanan, 0, ',', '.') . ",-</p>";
+    echo '</div>'; // Penutup div class="rincian"
+
+    $total = $subtotal + $biaya_layanan;
+
+    echo '<div class="total">';
+    echo "<p>Total: <br />Rp " . number_format($total, 0, ',', '.') . ",-</p>";
+    echo '<a href="konfirmasi.php">Konfirmasi</a>';
+    echo '</div>'; // Penutup div class="total"
+
+    echo '</section>'; // Penutup section class="kwitansi"
+} else {
+    echo 'Tidak ada data pesanan.';
+}
+
+$con->close();
+?>
+
+
+
+
+
+
 
     <!-- FOOTERNYA -->
     <footer>
