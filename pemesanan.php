@@ -323,7 +323,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_pemesanan'])) {
           echo '<a href="reset.php">Konfirmasi</a>';
         echo '</div>'; // Penutup div class="total"
       ?>
-    </section>'; // Penutup section class="kwitansi"
+    </section>
     <?php
     } else {
         echo 'Tidak ada data pesanan.';

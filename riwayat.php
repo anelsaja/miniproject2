@@ -13,6 +13,9 @@ $user_email = $_SESSION['username'];
 $query_pemesan = "SELECT * FROM data_pemesan WHERE username = '$user_email'";
 $result_pemesan = $con->query($query_pemesan);
 
+// Inisialisasi pesan
+$update_message = '';
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Handle update and cancel operations
     if (isset($_POST['update_tiket'])) {
@@ -24,6 +27,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
         $query_update = "UPDATE data_pemilik_tiket SET nama_pemilik = '$nama_pemilik', email_pemilik = '$email_pemilik', no_hp_pemilik = '$no_hp_pemilik' WHERE id = $id_tiket";
         $con->query($query_update);
+
+        // Check if the update was successful
+        if ($con->affected_rows > 0) {
+            $_SESSION['update_message'] = "<p class='success-msg'>Data pemilik tiket berhasil diperbarui.</p>";
+        } else {
+            $_SESSION['update_message'] = "<p class='error-msg'>Gagal memperbarui data pemilik tiket.</p>";
+        }
     } elseif (isset($_POST['cancel_pesanan'])) {
         // Cancel order
         $id_pesanan = $_POST['id_pesanan'];
@@ -52,9 +62,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Komit transaksi
             $con->commit();
-            echo "Pesanan dan tiket terkait berhasil dihapus.";
+            $_SESSION['update_message'] = "<p class='success-msg'>Pesanan dan tiket terkait berhasil dihapus.</p>";
         } catch (mysqli_sql_exception $exception) {
             $con->rollback(); // Jika ada error, rollback transaksi
+            $_SESSION['update_message'] = "<p class='error-msg'>Gagal menghapus pesanan dan tiket terkait.</p>";
             throw $exception; // Lanjutkan melempar exception
         }
     }
@@ -63,19 +74,74 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Orders - Ojink</title>
-</head>
-<body>
-    <h1>Manage Your Orders</h1>
-    <a href="logout.php">Logout</a>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OJINK - Riwayat <?php echo $user_email;?></title>
+    <link rel="icon" href="img/logo.png" />
+    <link rel="stylesheet" href="riwayat.css" />
+  </head>
+
+  <body>
+    <header>
+      <div class="logo1">
+        <a href="halamanutama.php">
+          <img src="img/logo.png" alt="logo" />
+        </a>
+      </div>
+      <div class="website">
+        <a href="halamanutama.php">
+          <h1>OJINK</h1>
+        </a>
+      </div>
+      <div class="cari">
+        <form method="GET" action="searching.php">
+          <input type="text" id="cari" name="cari" value="<?php echo isset($_GET['cari']) ? htmlspecialchars($_GET['cari']) : ''; ?>" placeholder="Cari Orkes, Tanggal, dan Lokasi ...">
+          <button type="submit">Cari</button>
+        </form>
+      </div>
+      <?php if (isset($_SESSION['username'])): ?>
+          <div id="keranjang">
+            <a href="riwayat.php"><img src="img/keranjang.png" alt="keranjang"></a>
+          </div>
+          <div class="username">
+            <img src='img/profil.png' alt='profil'>
+            <p><?php echo $_SESSION['username']; ?></p>
+          </div>
+        <?php endif; ?>
+      <div class="login">
+        <?php if (isset($_SESSION['username'])): ?>
+          <a href="logout.php" onclick="return confirmLogout();">LOGOUT</a>
+          <script>
+            function confirmLogout() {
+              return confirm("Apakah Anda yakin ingin logout?");
+            }
+          </script>
+        <?php else: ?>
+        <a href="login.php">LOGIN</a>
+        <?php endif; ?>
+      </div>
+    </header>
+    <h5>
+      <a href="halamanutama.php">Halaman Utama</a> >
+      <a href="#">Riwayat</a>
+    </h5>
+    <div class="awalan">
+      <div class="login">
+        <a href="halamanutama.php">Kembali</a>
+      </div>
+    </div>
     
     <?php
+    // Tampilkan pesan jika ada
+    if (isset($_SESSION['update_message'])) {
+        echo $_SESSION['update_message'];
+        unset($_SESSION['update_message']); // Hapus pesan dari session
+    }
     if ($result_pemesan->num_rows > 0) {
         while ($row_pemesan = $result_pemesan->fetch_assoc()) {
             $id_pemesan = $row_pemesan['id'];
+            echo "<main>";
             echo "<h2>Order ID: " . $row_pemesan['id'] . "</h2>";
             echo "<p>Nama Pemesan: " . $row_pemesan['nama'] . "</p>";
             echo "<p>Email Pemesan: " . $row_pemesan['email'] . "</p>";
@@ -87,7 +153,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             
             if ($result_pemilik->num_rows > 0) {
                 while ($row_pemilik = $result_pemilik->fetch_assoc()) {
-                    echo "<form action='manage_orders.php' method='post'>";
+                    echo "<form method='post'>";
                     echo "<fieldset>";
                     echo "<legend>Data Pemilik Tiket</legend>";
                     echo "<input type='hidden' name='id_tiket' value='" . $row_pemilik['id'] . "'>";
@@ -108,10 +174,50 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "<input type='hidden' name='id_pesanan' value='$id_pemesan'>";
             echo "<input type='submit' name='cancel_pesanan' value='Cancel Order'>";
             echo "</form>";
+            echo "</main>";
         }
     } else {
-        echo "<p>No orders found.</p>";
+        echo "<p id='kosong'>No orders found.</p>";
     }
     ?>
-</body>
+    <footer>
+      <div class="footer1">
+        <div class="footerkiri">
+          <img class="logo" src="img/logo.png" alt=" logo" />
+          <p>
+            <b>Ojink</b> adalah platform online yang menyediakan layanan
+            pembelian tiket untuk berbagai acara, seperti konser musik,
+            festival, hajatan, dan happy party. Website ini didirikan pada tahun
+            2024 oleh sekelompok pemuda yang ingin memudahkan masyarakat dalam
+            mendapatkan tiket orkes favorit mereka.
+          </p>
+          <p>Sosial Media:</p>
+          <div class="sosmed">
+            <a href="https://www.tiktok.com/@info_orkes_pati"
+              ><img src="img/tiktok.png" alt="tiktok"
+            /></a>
+            <a href="https://www.facebook.com/infoorkespati"
+              ><img src="img/fb.png" alt="fb"
+            /></a>
+            <a href="https://www.instagram.com/infoorkespati/"
+              ><img src="img/ig.png" alt="ig"
+            /></a>
+          </div>
+        </div>
+        <div class="footerkiri">
+          <p><b>INFORMASI</b></p>
+          <a href="syarat.php">
+            <p>Syarat dan Ketentuan</p>
+          </a>
+          <a href="syarat.php">
+            <p>Privasi</p>
+          </a>
+        </div>
+      </div>
+      <div class="copyright">
+        <p>PT. Pasukan Ojink Indonesia (Ojink)</p>
+        <p>&copy; 2024 Ojink. All Rights Reserved</p>
+      </div>
+    </footer>
+  </body>
 </html>

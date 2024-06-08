@@ -1,0 +1,263 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  background-color: white;
+}
+
+/* ----HEADER---- */
+header {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  background-color: #811001;
+  z-index: 1;
+}
+#keranjang img {
+  width: 50px;
+  height: 50px;
+  margin-left: 15px;
+}
+#keranjang img:hover {
+  background-color: grey;
+  border-radius: 20px;
+}
+.username {
+  margin-left: 5px;
+  padding: 10px;
+  display: flex;
+}
+.username img {
+  width: 30px;
+  height: 30px;
+}
+.username p {
+  margin-top: 3px;
+  margin-left: 10px;
+  font-size: 1.2em;
+  color: white;
+}
+.logo1 img {
+  margin-left: 3rem;
+  width: 65px;
+  height: 50px;
+}
+.website {
+  margin-left: 10px;
+}
+.website a {
+  text-decoration: none;
+  color: white;
+}
+.cari {
+  margin-left: 45rem;
+}
+.cari input[type="text"] {
+  padding: 10px; /* Padding di dalam input text */
+  width: 300px; /* Lebar input text */
+  font-size: 16px; /* Ukuran font */
+  border: 1px solid #ccc; /* Garis tepi dengan warna abu-abu */
+  border-radius: 4px; /* Sudut lengkung tepi */
+}
+
+.cari button {
+  padding: 10px 20px; /* Padding pada tombol */
+  font-size: 16px; /* Ukuran font */
+  background-color: #0bb405; /* Warna latar belakang tombol biru */
+  color: #fff; /* Warna teks putih */
+  border: none; /* Tanpa garis tepi */
+  border-radius: 4px; /* Sudut lengkung tepi */
+  cursor: pointer; /* Tanda kursor pointer saat di atas tombol */
+}
+
+.cari button:hover {
+  background-color: #0056b3; /* Efek warna latar belakang saat hover */
+}
+.login {
+  margin-left: 1rem;
+}
+.login a {
+  color: #04ec04;
+  text-decoration: none;
+  padding: 15px;
+  border: 1px solid white;
+  border-radius: 10px;
+}
+.login a:hover {
+  background-color: #00bc00;
+  color: white;
+}
+/* ----Awalan---- */
+h5 {
+  margin-left: 3rem;
+  margin-top: 1rem;
+}
+h5 a {
+  text-decoration: none;
+  color: black;
+}
+h5 a:hover {
+  text-decoration: underline;
+}
+.awalan {
+  margin-left: 2rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+.awalan .login a {
+  color: #04ec04;
+  text-decoration: none;
+  padding: 15px;
+  border: 1px solid black;
+  border-radius: 10px;
+  font-weight: bold;
+}
+.awalan .login a:hover {
+  background-color: #00bc00;
+  color: white;
+}
+/* Isinya */
+main {
+  margin-left: 5rem;
+  margin-top: 2rem;
+  padding: 0rem 3rem;
+}
+main h1 {
+  color: #333;
+}
+
+main h2 {
+  color: #555;
+  margin-bottom: 10px;
+}
+
+main p {
+  margin-left: 3rem;
+}
+
+fieldset {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+  width: 100%;
+  max-width: 600px;
+}
+
+legend {
+  font-size: 1.2em;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+label {
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"] {
+  width: calc(100% - 20px);
+  padding: 8px;
+  margin: 5px 0 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 1em;
+}
+
+input[type="submit"] {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+input[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+.cancel-btn {
+  background-color: #f44336;
+}
+
+.cancel-btn:hover {
+  background-color: #d32f2f;
+}
+#kosong {
+  margin: 3rem;
+  font-weight: bold;
+}
+.success-msg {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 10px;
+  border: 1px solid #c3e6cb;
+  margin: 2rem 3rem 10px 3rem;
+  text-align: center;
+}
+
+.error-msg {
+  background-color: #ce1717;
+  color: white;
+  padding: 10px;
+  border: 1px solid;
+  margin-bottom: 15px;
+  margin: 2rem 3rem 10px 3rem;
+  text-align: center;
+}
+/* ----Footer---- */
+footer {
+  background-color: #811001;
+  padding-top: 30px;
+  padding-bottom: 20px;
+  padding-left: 3rem;
+  padding-right: 3rem;
+  margin-top: 2rem;
+}
+.footer1 {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 2px solid white;
+  padding-bottom: 30px;
+}
+.footerkiri {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.logo {
+  width: 80px;
+  height: 65px;
+}
+.footerkiri p {
+  color: white;
+  width: 350px;
+}
+.footerkiri a {
+  text-decoration: none;
+}
+.sosmed a {
+  text-decoration: none;
+}
+.sosmed a img {
+  width: 30px;
+  height: 30px;
+  margin-left: 10px;
+}
+.sosmed a img:hover {
+  border: none;
+  box-shadow: 1px 1px 5px black;
+}
+.copyright {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  color: white;
+}
