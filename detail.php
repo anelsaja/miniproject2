@@ -199,7 +199,6 @@
           <input type="submit" name="submit_tiket" value="Beli Tiket">
         </form>
       </div>
-      </div>
       <div class="deskripsi">
         <h2>Deskripsi Orkes</h2>
         <p>
@@ -225,7 +224,6 @@
         </div>
       </div>
     </main>
-
     <footer>
       <div class="footer1">
         <div class="footerkiri">
