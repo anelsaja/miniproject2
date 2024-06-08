@@ -1,5 +1,6 @@
 <?php
   require "koneksi.php";
+  require "session.php";
 
   // $today = date("Y-m-d");
   $query1 = mysqli_query($con, "SELECT id, img, title, tanggal, lokasi, waktu, CONCAT('Rp ', REPLACE(FORMAT(harga, 0), ',', '.'),',-') AS harga FROM jadwal_konser WHERE tanggal >= CURDATE() ORDER BY tanggal ASC LIMIT 3");
@@ -35,11 +36,14 @@
         </form>
       </div>
       <div class="login">
-        <a href="#">LOGIN</a>
+        <a href="login.php">LOGIN</a>
+        <br>
+        <!-- ku buat untuk bantu liat jadi ga masuk ga sessionku -->
+        <a href="logout.php">LOGOUT</a>
       </div>
     </header>
     <div class="banner">
-      <h1 class="welcome">SELAMAT DATANG!</h1>
+      <h1 class="welcome">SELAMAT DATANG <?php  echo $_SESSION['username'];?>!</h1>
       <h1>PASUKAN OJINK</h1>
       <p>
         Pasukan Ojink adalah sebuah komunitas atau kelompok informal yang
