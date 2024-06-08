@@ -157,7 +157,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_pemesanan'])) {
       echo "<form action='" . htmlspecialchars($_SERVER["PHP_SELF"]) . "' method='post'>";
 
       // Ambil ID pemesan dari session atau sesuai dengan cara Anda
-      // $id_pemesan = $_SESSION['last_insert_id']; // Misalnya, ini adalah cara untuk mendapatkan ID pemesan dari session
+      $id_pemesan = $_SESSION['last_insert_id']; // Misalnya, ini adalah cara untuk mendapatkan ID pemesan dari session
       if (!isset($sukses) && !isset($error)) {
         foreach ($_SESSION['jumlah_tiket'] as $id_tiket => $jumlah) {
         // Query untuk mendapatkan informasi paket tiket berdasarkan id_tiket
@@ -210,7 +210,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_pemesanan'])) {
               $email_pemilik = mysqli_real_escape_string($con, $_POST['email_pemilik'][$id_tiket][$i]);
               $no_hp_pemilik = mysqli_real_escape_string($con, $_POST['no_hp_pemilik'][$id_tiket][$i]);
               // Query untuk menyimpan data pemilik tiket ke dalam tabel data_pemilik_tiket
-              $query_simpan_pemilik = "INSERT INTO data_pemilik_tiket (id_pemesan, id_tiket, nama_pemilik, email_pemilik, no_hp_pemilik) VALUES ($id_pemesan, $id_tiket', '$nama_pemilik', '$email_pemilik', '$no_hp_pemilik')";
+              $query_simpan_pemilik = "INSERT INTO data_pemilik_tiket (id_pemesan, id_tiket, nama_pemilik, email_pemilik, no_hp_pemilik) VALUES ($id_pemesan, $id_tiket, '$nama_pemilik', '$email_pemilik', '$no_hp_pemilik')";
               if ($con->query($query_simpan_pemilik) === TRUE) {
                 // Tampilkan pesan sukses atau lakukan tindakan lanjutan setelah penyimpanan berhasil
                 $sukses = "Data pemilik setiap tiket berhasil disimpan!";
@@ -303,7 +303,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_pemesanan'])) {
         echo 'Tidak ada data pesanan.';
     }
     $con->close();
-    session_destroy();
+    // session_destroy();
     ?>
     <!-- FOOTERNYA -->
     <footer>
