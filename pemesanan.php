@@ -362,10 +362,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_pemesanan'])) {
         </div>
         <div class="footerkiri">
           <p><b>INFORMASI</b></p>
-          <a href="#">
+          <a href="syarat.php">
             <p>Syarat dan Ketentuan</p>
           </a>
-          <a href="#">
+          <a href="syarat.php">
             <p>Privasi</p>
           </a>
         </div>

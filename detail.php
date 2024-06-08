@@ -255,10 +255,10 @@
         </div>
         <div class="footerkiri">
           <p><b>INFORMASI</b></p>
-          <a href="#">
+          <a href="syarat.php">
             <p>Syarat dan Ketentuan</p>
           </a>
-          <a href="#">
+          <a href="syarat.php">
             <p>Privasi</p>
           </a>
         </div>
