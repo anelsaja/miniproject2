@@ -210,7 +210,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_pemesanan'])) {
               $email_pemilik = mysqli_real_escape_string($con, $_POST['email_pemilik'][$id_tiket][$i]);
               $no_hp_pemilik = mysqli_real_escape_string($con, $_POST['no_hp_pemilik'][$id_tiket][$i]);
               // Query untuk menyimpan data pemilik tiket ke dalam tabel data_pemilik_tiket
-              $query_simpan_pemilik = "INSERT INTO data_pemilik_tiket (id_pemesan, id_tiket, nama_pemilik, email_pemilik, no_hp_pemilik) VALUES ($id_pemesan, $id_tiket', '$nama_pemilik', '$email_pemilik', '$no_hp_pemilik')";
+              $query_simpan_pemilik = "INSERT INTO data_pemilik_tiket (id_pemesan, id_tiket, nama_pemilik, email_pemilik, no_hp_pemilik) VALUES ($id_pemesan, $id_tiket, '$nama_pemilik', '$email_pemilik', '$no_hp_pemilik')";
               if ($con->query($query_simpan_pemilik) === TRUE) {
                 // Tampilkan pesan sukses atau lakukan tindakan lanjutan setelah penyimpanan berhasil
                 $sukses = "Data pemilik setiap tiket berhasil disimpan!";
@@ -230,8 +230,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_pemesanan'])) {
     // Memastikan last_insert_id ada di session
     if (!isset($_SESSION['last_insert_id'])) {
       $informasi = "Selesaikan dulu Data Pemesan, maka Rincian Pemesanan akan tertampil";
-        echo "<p class='informasi'>$informasi</p>";
-        exit();
+      echo "<p class='informasi'>$informasi</p>";
+      exit();
     }
 
     $id_pemesan = intval($_SESSION['last_insert_id']); // Konversi ke integer untuk keamanan
@@ -295,7 +295,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_pemesanan'])) {
 
       echo '<div class="total">';
       echo "<p>Total: <br />Rp " . number_format($total, 0, ',', '.') . ",-</p>";
-      echo '<a href="konfirmasi.php">Konfirmasi</a>';
+      echo '<a href="confirmasi.php">Konfirmasi</a>';
       echo '</div>'; // Penutup div class="total"
 
       echo '</section>'; // Penutup section class="kwitansi"
@@ -344,6 +344,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_pemesanan'])) {
         <p>PT. Pasukan Ojink Indonesia (Ojink)</p>
         <p>&copy; 2024 Ojink. All Rights Reserved</p>
       </div>
-    </footer>  
+    </footer>   
   </body>
 </html>
