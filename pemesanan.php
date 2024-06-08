@@ -210,7 +210,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_pemesanan'])) {
               $email_pemilik = mysqli_real_escape_string($con, $_POST['email_pemilik'][$id_tiket][$i]);
               $no_hp_pemilik = mysqli_real_escape_string($con, $_POST['no_hp_pemilik'][$id_tiket][$i]);
               // Query untuk menyimpan data pemilik tiket ke dalam tabel data_pemilik_tiket
-              $query_simpan_pemilik = "INSERT INTO data_pemilik_tiket (id_pemesan, id_tiket, nama_pemilik, email_pemilik, no_hp_pemilik) VALUES ($id_pemesan, $id_tiket, '$nama_pemilik', '$email_pemilik', '$no_hp_pemilik')";
+              $query_simpan_pemilik = "INSERT INTO data_pemilik_tiket (id_pemesan, id_tiket, nama_pemilik, email_pemilik, no_hp_pemilik) VALUES ($id_pemesan, $id_tiket', '$nama_pemilik', '$email_pemilik', '$no_hp_pemilik')";
               if ($con->query($query_simpan_pemilik) === TRUE) {
                 // Tampilkan pesan sukses atau lakukan tindakan lanjutan setelah penyimpanan berhasil
                 $sukses = "Data pemilik setiap tiket berhasil disimpan!";
