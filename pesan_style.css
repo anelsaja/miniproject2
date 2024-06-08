@@ -172,6 +172,17 @@ legend {
 }
 
 /* ----Bukti transaksi---- */
+/* CSS untuk pesan informasi */
+.informasi {
+  margin: 0rem 3rem 10rem 65rem;
+  background-color: #f2f2f2;
+  color: #333;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: center;
+}
+
 .kwitansi {
   margin: 0rem 3rem 10rem 65rem;
   padding: 10px;
