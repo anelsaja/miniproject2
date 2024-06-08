@@ -7,44 +7,6 @@ if (!isset($_SESSION['jumlah_tiket'])) {
   exit();
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  if (isset($_POST['submit_tiket'])) {
-      // Proses saat tombol submit tiket diklik
-
-      // Dapatkan jumlah tiket yang dipilih dari form
-      $jumlah_tiket = $_POST['jumlah_tiket'];
-
-      // Menyimpan data pemesanan
-      $total_harga = 0;
-      $pemesanan = [];
-      $total_tiket = 0;
-
-      foreach ($jumlah_tiket as $id_tiket => $jumlah) {
-          if ($jumlah > 0) {
-              // Ambil informasi tiket dari database
-              $sql = "SELECT namaPaket, harga FROM tiket WHERE id = $id_tiket";
-              $result = $con->query($sql);
-              if ($result->num_rows > 0) {
-                  $row = $result->fetch_assoc();
-                  $namaPaket = $row['namaPaket'];
-                  $harga = $row['harga'];
-                  $total_harga += $harga * $jumlah;
-                  $total_tiket += $jumlah;
-
-                  // Simpan informasi pemesanan
-                  $pemesanan[] = [
-                      'id' => $id_tiket,
-                      'namaPaket' => $namaPaket,
-                      'jumlah' => $jumlah,
-                      'harga' => $harga,
-                      'total' => $harga * $jumlah
-                  ];
-              }
-          }
-      }
-    }
-  }
-
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_pemesanan'])) {
   // Ambil data pemesan dari formulir
   $nama_pemesan = mysqli_real_escape_string($con, $_POST['nama_pemesan']);
@@ -191,7 +153,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_pemesanan'])) {
       ?>
       <?php
       echo "<div class='data_pemilik'>";
-      echo "<form action='" . htmlspecialchars($_SERVER["PHP_SELF"]) . "' method='post'>";
+      echo "<form method='post'>";
 
       // Ambil ID pemesan dari session atau sesuai dengan cara Anda
       // $id_pemesan = $_SESSION['last_insert_id']; // Misalnya, ini adalah cara untuk mendapatkan ID pemesan dari session
@@ -339,7 +301,9 @@ if ($result_pesanan->num_rows > 0) {
     echo 'Tidak ada data pesanan.';
 }
 
+
 $con->close();
+session_destroy();
 ?>
 
 
