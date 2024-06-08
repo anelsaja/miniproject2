@@ -162,18 +162,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_pemesanan'])) {
       </div>
       <?php
       }
-      // Tampilkan pesan sukses jika ada
-      if (isset($pesan_sukses)) {
-        echo "<p class='pesan_sukses'>$pesan_sukses</p>";
-      }
-      // Tampilkan pesan error jika ada
-      if (isset($pesan_error)) {
-        echo "<p class='pesan_gagal'>$pesan_error</p>";
-      }
       ?>
       <?php
-      echo "<div class='data_pemilik'>";
-      echo "<form action='" . htmlspecialchars($_SERVER["PHP_SELF"]) . "' method='post'>";
+      echo "<div class='data_pemesan'>";
+        echo "<form action='" . htmlspecialchars($_SERVER["PHP_SELF"]) . "' method='post'>";
       // Ambil ID pemesan dari session atau sesuai dengan cara Anda
       if (isset($_SESSION['last_insert_id'])) {
         $id_pemesan1 = $_SESSION['last_insert_id'];
@@ -195,16 +187,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_pemesanan'])) {
               $tipe_paket = $row_info_tiket['tipePaket'];
               // Tampilkan form berdasarkan jenis tiket (VIP atau Reguler)
               for ($i = 1; $i <= $jumlah; $i++) {
-                echo "<fieldset>";
-                echo "<legend>Data Pemilik Tiket $tipe_paket ke-$i</legend>";
-                echo "<input type='hidden' name='id_tiket[]' value='$id_tiket'>"; // Hidden input untuk ID tiket
-                echo "<label for='nama_pemilik_$i'>Nama Pemilik Tiket:</label><br />";
-                echo "<input type='text' name='nama_pemilik[$id_tiket][$i]' id='nama_pemilik_$i' placeholder='Masukkan nama pemilik tiket' required /><br />";
-                echo "<label for='email_pemilik_$i'>Email:</label><br />";
-                echo "<input type='email' name='email_pemilik[$id_tiket][$i]' id='email_pemilik_$i' placeholder='Masukkan email pemilik tiket' required /><br />";
-                echo "<label for='no_hp_pemilik_$i'>No. HP:</label><br />";
-                echo "<input type='text' name='no_hp_pemilik[$id_tiket][$i]' id='no_hp_pemilik_$i' placeholder='Masukkan nomor HP pemilik tiket' required /><br />";
-                echo "</fieldset>";
+          echo "<fieldset>";
+            echo "<legend>Data Pemilik Tiket $tipe_paket ke-$i</legend>";
+            echo "<input type='hidden' name='id_tiket[]' value='$id_tiket'>"; // Hidden input untuk ID tiket
+            echo "<label for='nama_pemilik_$i'>Nama Pemilik Tiket:</label><br />";
+            echo "<input type='text' name='nama_pemilik[$id_tiket][$i]' id='nama_pemilik_$i' placeholder='Masukkan nama pemilik tiket' required /><br />";
+            echo "<label for='email_pemilik_$i'>Email:</label><br />";
+            echo "<input type='email' name='email_pemilik[$id_tiket][$i]' id='email_pemilik_$i' placeholder='Masukkan email pemilik tiket' required /><br />";
+            echo "<label for='no_hp_pemilik_$i'>No. HP:</label><br />";
+            echo "<input type='text' name='no_hp_pemilik[$id_tiket][$i]' id='no_hp_pemilik_$i' placeholder='Masukkan nomor HP pemilik tiket' required /><br />";
+          echo "</fieldset>";
               }
             } else {
               echo "Error retrieving ticket information";
@@ -214,18 +206,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_pemesanan'])) {
             echo "<input type='reset' value='Reset' />";
             echo "<input type='submit' name='submit_pemilik' value='Submit Data Pemilik' />";
           echo "</div>";
-          echo "</form>";
-          echo "</div>";
+        echo "</form>";
         }
-        // Tampilkan pesan sukses jika ada
-      if (isset($sukses)) {
-        echo "<p class='pesan_sukses'>$sukses</p>";
       }
-      // Tampilkan pesan error jika ada
-      if (isset($error)) {
-        echo "<p class='pesan_gagal'>$error</p>";
-      }
-      }
+      echo "</div>";
+    echo "</section>";
       
       
 
@@ -243,7 +228,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_pemesanan'])) {
               $query_simpan_pemilik = "INSERT INTO data_pemilik_tiket (id_pemesan, id_tiket, nama_pemilik, email_pemilik, no_hp_pemilik) VALUES ($id_pemesan1, $id_tiket, '$nama_pemilik', '$email_pemilik', '$no_hp_pemilik')";
               if ($con->query($query_simpan_pemilik) === TRUE) {
                 // Tampilkan pesan sukses atau lakukan tindakan lanjutan setelah penyimpanan berhasil
-                $sukses = "Data pemilik setiap tiket berhasil disimpan!";
+                $sukses = "Data pembelian anda berhasil disimpan!<br>Silahkan melakukan Konfirmasi";
               } else {
                 $error = "Error: " . $query_simpan_pemesan . "<br>" . $con->error;
               }
@@ -254,8 +239,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_pemesanan'])) {
           }
         }
       }
+      // Tampilkan pesan sukses jika ada
+    if (isset($sukses)) {
+      echo "<p class='pesan_sukses'>$sukses</p>";
+  }
+
+  // Tampilkan pesan error jika ada
+  if (isset($error)) {
+      echo "<p class='pesan_gagal'>$error</p>";
+  }
+      
       ?>
-    </section>
+    <!-- </section> -->
     <?php
     // Memastikan last_insert_id ada di session
     if (!isset($_SESSION['last_insert_id'])) {
@@ -282,22 +277,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_pemesanan'])) {
       // Inisialisasi subtotal dan biaya layanan
       $subtotal = 0;
       $biaya_layanan = 5000;
-
-      echo '<section class="kwitansi">';
-      echo '<h3>Rincian Pesanan</h3>';
-
+      ?>
+    <section class="kwitansi">
+      <h3>Rincian Pesanan</h3>
+      <?php
       // Ambil data pertama untuk gambar poster (jika ada)
       $row = $result_pesanan->fetch_assoc();
       $namakonser = $row['nama'];
       $gambar = $row['gambar']; // Mengambil data gambar dari kolom 'gambar'
 
-      echo '<div class="poster">';
-      echo "<img src='img/$gambar' alt='poster' />";
-      echo "<h4>$namakonser</h4>";
-      echo '</div>';
+        echo '<div class="poster">';
+          echo "<img src='img/$gambar' alt='poster' />";
+          echo "<h4>$namakonser</h4>";
+        echo '</div>';
 
-      echo '<div class="voucher">';
-      echo '<h4>Tiket</h4>';
+        echo '<div class="voucher">';
+          echo '<h4>Tiket</h4>';
 
       // Sekarang menampilkan rincian tiket
       do {
@@ -310,70 +305,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_pemesanan'])) {
             echo "<p>$nama_paket x $jumlah_tiket <br />Rp " . number_format($total_harga, 0, ',', '.') . ",-</p>";
         } while ($row = $result_pesanan->fetch_assoc());
 
-      echo '<input type="text" name="voucher" id="voucher" placeholder="Masukkan kode voucher" />';
-      echo '<input class="terapkan" type="submit" value="Terapkan" />';
-      echo '</div>'; // Penutup div class="voucher"
+          echo '<input type="text" name="voucher" id="voucher" placeholder="Masukkan kode voucher" />';
+          echo '<input class="terapkan" type="submit" value="Terapkan" />';
+        echo '</div>'; // Penutup div class="voucher"
 
-      echo '<div class="rincian">';
-      echo '<p>Subtotal:</p>';
-      echo "<p>Rp " . number_format($subtotal, 0, ',', '.') . ",-</p>";
-      echo '<p>Biaya Layanan:</p>';
-      echo "<p>Rp " . number_format($biaya_layanan, 0, ',', '.') . ",-</p>";
-      echo '</div>'; // Penutup div class="rincian"
+        echo '<div class="rincian">';
+          echo '<p>Subtotal:</p>';
+          echo "<p>Rp " . number_format($subtotal, 0, ',', '.') . ",-</p>";
+          echo '<p>Biaya Layanan:</p>';
+          echo "<p>Rp " . number_format($biaya_layanan, 0, ',', '.') . ",-</p>";
+        echo '</div>'; // Penutup div class="rincian"
 
       $total = $subtotal + $biaya_layanan;
 
-      echo '<div class="total">';
-      echo "<p>Total: <br />Rp " . number_format($total, 0, ',', '.') . ",-</p>";
-      echo '<a href="reset.php">Konfirmasi</a>';
-      echo '</div>'; // Penutup div class="total"
-
-      echo '</section>'; // Penutup section class="kwitansi"
+        echo '<div class="total">';
+          echo "<p>Total: <br />Rp " . number_format($total, 0, ',', '.') . ",-</p>";
+          echo '<a href="reset.php">Konfirmasi</a>';
+        echo '</div>'; // Penutup div class="total"
+      ?>
+    </section>'; // Penutup section class="kwitansi"
+    <?php
     } else {
         echo 'Tidak ada data pesanan.';
     }
-    $con->close();
-    // session_destroy();
-    ?>
-    <!-- FOOTERNYA -->
-    <footer>
-      <div class="footer1">
-        <div class="footerkiri">
-          <img class="logo" src="img/logo.png" alt=" logo" />
-          <p>
-            <b>Ojink</b> adalah platform online yang menyediakan layanan
-            pembelian tiket untuk berbagai acara, seperti konser musik,
-            festival, hajatan, dan happy party. Website ini didirikan pada tahun
-            2024 oleh sekelompok pemuda yang ingin memudahkan masyarakat dalam
-            mendapatkan tiket orkes favorit mereka.
-          </p>
-          <p>Sosial Media:</p>
-          <div class="sosmed">
-            <a href="https://www.tiktok.com/@info_orkes_pati"
-              ><img src="img/tiktok.png" alt="tiktok"
-            /></a>
-            <a href="https://www.facebook.com/infoorkespati"
-              ><img src="img/fb.png" alt="fb"
-            /></a>
-            <a href="https://www.instagram.com/infoorkespati/"
-              ><img src="img/ig.png" alt="ig"
-            /></a>
-          </div>
-        </div>
-        <div class="footerkiri">
-          <p><b>INFORMASI</b></p>
-          <a href="syarat.php">
-            <p>Syarat dan Ketentuan</p>
-          </a>
-          <a href="syarat.php">
-            <p>Privasi</p>
-          </a>
-        </div>
-      </div>
-      <div class="copyright">
-        <p>PT. Pasukan Ojink Indonesia (Ojink)</p>
-        <p>&copy; 2024 Ojink. All Rights Reserved</p>
-      </div>
-    </footer>   
+      $con->close();
+      ?>
   </body>
 </html>
