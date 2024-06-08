@@ -51,7 +51,6 @@
         <a href="login.php">LOGIN</a>
         <?php endif; ?>
       </div>
-
     </header>
     <div class="banner">
       <h1 class="welcome">SELAMAT DATANG,</h1>

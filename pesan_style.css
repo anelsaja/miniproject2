@@ -33,7 +33,7 @@ header {
   color: white;
 }
 .cari {
-  margin-left: 55rem;
+  margin-left: 45rem;
 }
 .cari input[type="text"] {
   padding: 10px; /* Padding di dalam input text */
@@ -55,6 +55,30 @@ header {
 
 .cari button:hover {
   background-color: #0056b3; /* Efek warna latar belakang saat hover */
+}
+#keranjang img {
+  width: 50px;
+  height: 50px;
+  margin-left: 15px;
+}
+#keranjang img:hover {
+  background-color: grey;
+  border-radius: 20px;
+}
+.username {
+  margin-left: 5px;
+  padding: 10px;
+  display: flex;
+}
+.username img {
+  width: 30px;
+  height: 30px;
+}
+.username p {
+  margin-top: 3px;
+  margin-left: 10px;
+  font-size: 1.2em;
+  color: white;
 }
 .login {
   margin-left: 1rem;

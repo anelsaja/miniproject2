@@ -1,5 +1,5 @@
 <?php
-session_start();
+require 'session.php';
 include 'koneksi.php';
 
 if (!isset($_SESSION['jumlah_tiket'])) {
@@ -88,14 +88,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_pemesanan'])) {
           </a>
         </div>
         <div class="cari">
-        <form method="GET" action="searching.php">
-          <input type="text" id="cari" name="cari" value="<?php echo isset($_GET['cari']) ? htmlspecialchars($_GET['cari']) : ''; ?>" placeholder="Cari Orkes, Tanggal, dan Lokasi ...">
-          <button type="submit">Cari</button>
-        </form>
-      </div>
-        <div class="login">
-          <a href="detail.html">LOGIN</a>
+          <form method="GET" action="searching.php">
+            <input type="text" id="cari" name="cari" value="<?php echo isset($_GET['cari']) ? htmlspecialchars($_GET['cari']) : ''; ?>" placeholder="Cari Orkes, Tanggal, dan Lokasi ...">
+            <button type="submit">Cari</button>
+          </form>
         </div>
+        <?php if (isset($_SESSION['username'])): ?>
+          <div id="keranjang">
+            <a href="riwayat.php"><img src="img/keranjang.png" alt="keranjang"></a>
+          </div>
+          <div class="username">
+            <img src='img/profil.png' alt='profil'>
+            <p><?php echo $_SESSION['username']; ?></p>
+          </div>
+        <?php endif; ?>
+      <div class="login">
+        <?php if (isset($_SESSION['username'])): ?>
+        <a href="logout.php">LOGOUT</a>
+        <?php else: ?>
+        <a href="login.php">LOGIN</a>
+        <?php endif; ?>
+      </div>
       </header>
       <div class="timer">
         <p>Anda memiliki waktu 15 menit untuk menyelesaikan pemesanan ini!</p>

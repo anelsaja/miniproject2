@@ -1,5 +1,6 @@
 <?php
   require "koneksi.php";
+  require "session.php";
 
   $nama = htmlspecialchars($_GET['id']);
   // echo $nama;
@@ -36,8 +37,21 @@
           <button type="submit">Cari</button>
         </form>
       </div>
+      <?php if (isset($_SESSION['username'])): ?>
+          <div id="keranjang">
+            <a href="riwayat.php"><img src="img/keranjang.png" alt="keranjang"></a>
+          </div>
+          <div class="username">
+            <img src='img/profil.png' alt='profil'>
+            <p><?php echo $_SESSION['username']; ?></p>
+          </div>
+        <?php endif; ?>
       <div class="login">
-        <a href="#">LOGIN</a>
+        <?php if (isset($_SESSION['username'])): ?>
+        <a href="logout.php">LOGOUT</a>
+        <?php else: ?>
+        <a href="login.php">LOGIN</a>
+        <?php endif; ?>
       </div>
     </header>
     <h5>
