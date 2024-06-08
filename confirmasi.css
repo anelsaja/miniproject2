@@ -17,6 +17,30 @@ header {
   padding-bottom: 6px;
   background-color: #811001;
 }
+#keranjang img {
+  width: 50px;
+  height: 50px;
+  margin-left: 15px;
+}
+#keranjang img:hover {
+  background-color: grey;
+  border-radius: 20px;
+}
+.username {
+  margin-left: 5px;
+  padding: 10px;
+  display: flex;
+}
+.username img {
+  width: 30px;
+  height: 30px;
+}
+.username p {
+  margin-top: 3px;
+  margin-left: 10px;
+  font-size: 1.2em;
+  color: white;
+}
 .logo1 img {
   margin-left: 3rem;
   width: 65px;

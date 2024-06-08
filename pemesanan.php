@@ -79,12 +79,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_pemesanan'])) {
     <div class="head">
       <header>
         <div class="logo1">
-          <a href="#">
+          <a href="halamanutama.php">
             <img src="img/logo.png" alt="logo" />
           </a>
         </div>
         <div class="website">
-          <a href="#">
+          <a href="halamanutama.php">
             <h1>OJINK</h1>
           </a>
         </div>
@@ -105,7 +105,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_pemesanan'])) {
         <?php endif; ?>
       <div class="login">
         <?php if (isset($_SESSION['username'])): ?>
-        <a href="logout.php">LOGOUT</a>
+          <a href="logout.php" onclick="return confirmLogout();">LOGOUT</a>
+          <script>
+            function confirmLogout() {
+              return confirm("Apakah Anda yakin ingin logout?");
+            }
+          </script>
         <?php else: ?>
         <a href="login.php">LOGIN</a>
         <?php endif; ?>
@@ -320,7 +325,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_pemesanan'])) {
 
       echo '<div class="total">';
       echo "<p>Total: <br />Rp " . number_format($total, 0, ',', '.') . ",-</p>";
-      echo '<a href="confirmasi.php">Konfirmasi</a>';
+      echo '<a href="reset.php">Konfirmasi</a>';
       echo '</div>'; // Penutup div class="total"
 
       echo '</section>'; // Penutup section class="kwitansi"

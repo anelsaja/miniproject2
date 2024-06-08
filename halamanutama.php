@@ -20,12 +20,12 @@
   <body>
     <header>
       <div class="logo1">
-        <a href="#">
+        <a href="halamanutama.php">
           <img src="img/logo.png" alt="logo" />
         </a>
       </div>
       <div class="website">
-        <a href="#">
+        <a href="halamanutama.php">
           <h1>OJINK</h1>
         </a>
       </div>
@@ -46,7 +46,12 @@
         <?php endif; ?>
       <div class="login">
         <?php if (isset($_SESSION['username'])): ?>
-        <a href="logout.php">LOGOUT</a>
+          <a href="logout.php" onclick="return confirmLogout();">LOGOUT</a>
+          <script>
+            function confirmLogout() {
+              return confirm("Apakah Anda yakin ingin logout?");
+            }
+          </script>
         <?php else: ?>
         <a href="login.php">LOGIN</a>
         <?php endif; ?>

@@ -10,31 +10,20 @@
   <body>
     <header>
       <div class="logo1">
-        <a href="#">
+        <a href="halamanutama.php">
           <img src="img/logo.png" alt="logo" />
         </a>
       </div>
       <div class="website">
-        <a href="#">
+        <a href="halamanutama.php">
           <h1>OJINK</h1>
         </a>
-      </div>
-      <div class="cari">
-        <input
-          type="text"
-          placeholder="Cari Event, Orkes, dll"
-          class="inputcari"
-        />
-        <input type="date" class="inputcari" />
-      </div>
-      <div class="login">
-        <a href="detail.html">LOGIN</a>
       </div>
     </header>
 
     <div class="awalan">
       <div class="login">
-        <a href="halamanutama.html">Kembali ke Halaman Utama</a>
+        <a href="halamanutama.php">Kembali ke Halaman Utama</a>
       </div>
     </div>
     <main>
