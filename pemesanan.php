@@ -8,7 +8,7 @@ if (!isset($_SESSION['jumlah_tiket'])) {
     exit();
 }
 
-
+$username = $_SESSION['username'];
 // Proses untuk menyimpan data pemesan setelah pengguna mengirimkan formulir
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_pemesanan'])) {
     // Ambil data pemesan dari formulir
@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_pemesanan'])) {
     $no_hp_pemesan = mysqli_real_escape_string($con, $_POST['no_hp_pemesan']);
     
     // Query untuk menyimpan data pemesan ke dalam tabel data_pemesan
-    $query_simpan_pemesan = "INSERT INTO data_pemesan (nama, email, no_hp) VALUES ('$nama_pemesan', '$email_pemesan', '$no_hp_pemesan')";
+    $query_simpan_pemesan = "INSERT INTO data_pemesan (nama, email, no_hp, username) VALUES ('$nama_pemesan', '$email_pemesan', '$no_hp_pemesan', '$username')";
     
     if ($con->query($query_simpan_pemesan) === TRUE) {
         $last_insert_id = $con->insert_id; // Ambil ID terakhir yang dimasukkan
