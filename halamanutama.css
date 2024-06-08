@@ -18,6 +18,30 @@ header {
   background-color: #811001;
   z-index: 1;
 }
+#keranjang img {
+  width: 50px;
+  height: 50px;
+  margin-left: 15px;
+}
+#keranjang img:hover {
+  background-color: grey;
+  border-radius: 20px;
+}
+.username {
+  margin-left: 5px;
+  padding: 10px;
+  display: flex;
+}
+.username img {
+  width: 30px;
+  height: 30px;
+}
+.username p {
+  margin-top: 3px;
+  margin-left: 10px;
+  font-size: 1.2em;
+  color: white;
+}
 .logo1 img {
   margin-left: 3rem;
   width: 65px;
@@ -31,7 +55,7 @@ header {
   color: white;
 }
 .cari {
-  margin-left: 55rem;
+  margin-left: 45rem;
 }
 .cari input[type="text"] {
   padding: 10px; /* Padding di dalam input text */

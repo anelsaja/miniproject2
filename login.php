@@ -3,12 +3,16 @@
 require "koneksi.php";
 session_start();
 
-// validasi bahwa user sudah login
-if (isset($_SESSION['login']) && $_SESSION['login']===true){
-    header ("location:halamanutama.php");
+// // validasi bahwa user sudah login
+// if (isset($_SESSION['login']) && $_SESSION['login']===true){
+//     header ("location:halamanutama.php");
+//     exit();
+// }
+
+if (isset($_SESSION['username'])) {
+    header("Location: halamanutama.php");
     exit();
 }
- 
 
 // untuk loginnya
 
@@ -46,7 +50,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Logiin</title>
+    <title>OJINK - LOGIN</title>
+    <link rel="icon" href="img/logo.png">
     <link rel="stylesheet" href="login.css">
 </head>
 <body>
