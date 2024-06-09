@@ -322,6 +322,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_pemesanan'])) {
           echo "<p>Total: <br />Rp " . number_format($total, 0, ',', '.') . ",-</p>";
           echo '<a href="reset.php">Konfirmasi</a>';
         echo '</div>'; // Penutup div class="total"
+
+      // Simpan total_harga ke dalam basis data
+      $query_update_total = "UPDATE data_pemesan SET total_harga = ? WHERE id = ?";
+      $stmt_update_total = $con->prepare($query_update_total);
+      $stmt_update_total->bind_param("di", $total, $id_pemesan);
+      $stmt_update_total->execute();
       ?>
     </section>
     <?php
