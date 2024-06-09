@@ -1,13 +1,6 @@
 <?php
-
 require "koneksi.php";
 session_start();
-
-// // validasi bahwa user sudah login
-// if (isset($_SESSION['login']) && $_SESSION['login']===true){
-//     header ("location:halamanutama.php");
-//     exit();
-// }
 
 if (isset($_SESSION['username'])) {
     header("Location: halamanutama.php");
@@ -47,33 +40,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OJINK - LOGIN</title>
-    <link rel="icon" href="img/logo.png">
-    <link rel="stylesheet" href="login.css">
-</head>
-<body>
-    <div class="isi">
-        <div class="login_form">
-        <form  method="post" action="">
-            <div class="kolom_usn">
-                <label for="username"> Username</label>
-                <input type="text" name="username" id="username" placeholder="Masukkan username" required >
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>OJINK - LOGIN</title>
+        <link rel="icon" href="img/logo.png">
+        <link rel="stylesheet" href="login.css">
+    </head>
+    <body>
+        <div class="isi">
+            <div class="login_form">
+            <form  method="post" action="">
+                <div class="kolom_usn">
+                    <label for="username"> Username</label>
+                    <input type="text" name="username" id="username" placeholder="Masukkan username" required >
+                </div>
+                <div class="kolom_pass">
+                    <label for="pass">Password</label>
+                    <input type="password" name="password" id="password" placeholder=" Masukkan password" required >
+                </div>
+                <button type="submit" name="loginbtn">Login</button>
+            </form> 
             </div>
-            <div class="kolom_pass">
-                <label for="pass">Password</label>
-                <input type="password" name="password" id="password" placeholder=" Masukkan password" required >
+            <div class="gambar">
+                <img src="img/logo.png" alt="logo">
             </div>
-            <button type="submit" name="loginbtn">Login</button>
-        </form> 
         </div>
-        <div class="gambar">
-            <img src="img/logo.png" alt="">
-        </div>
-    </div>
-
-    
-</body>
+    </body>
 </html>

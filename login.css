@@ -69,5 +69,5 @@ button {
 }
 
 button:hover {
-  background-image: url(img/background\ header.jpg);
+  background-color: #340600;
 }

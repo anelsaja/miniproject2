@@ -32,7 +32,7 @@
     </main>
     <div class="print">
       <div class="login">
-        <a href="detail.html">Download Bukti Pembayaran</a>
+        <a href="halamanutama.php">Download Bukti Pembayaran</a>
       </div>
     </div>
 

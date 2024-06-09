@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 07 Jun 2024 pada 16.32
+-- Waktu pembuatan: 09 Jun 2024 pada 16.33
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -35,57 +35,6 @@ CREATE TABLE `data_pembelian_tiket` (
   `waktu_pembelian` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data untuk tabel `data_pembelian_tiket`
---
-
-INSERT INTO `data_pembelian_tiket` (`id`, `id_pemesan`, `id_tiket`, `jumlah_tiket`, `waktu_pembelian`) VALUES
-(27, 24, 19, 2, '2024-06-07 09:22:10'),
-(28, 24, 20, 1, '2024-06-07 09:22:10'),
-(29, 25, 19, 2, '2024-06-07 09:22:39'),
-(30, 25, 20, 1, '2024-06-07 09:22:39'),
-(31, 26, 19, 2, '2024-06-07 09:22:53'),
-(32, 26, 20, 1, '2024-06-07 09:22:53'),
-(33, 27, 19, 1, '2024-06-07 09:24:02'),
-(34, 27, 20, 1, '2024-06-07 09:24:02'),
-(35, 28, 19, 1, '2024-06-07 09:25:18'),
-(36, 28, 20, 2, '2024-06-07 09:25:18'),
-(37, 29, 19, 1, '2024-06-07 09:30:06'),
-(38, 29, 20, 2, '2024-06-07 09:30:06'),
-(39, 30, 19, 2, '2024-06-07 09:38:29'),
-(40, 30, 20, 2, '2024-06-07 09:38:29'),
-(41, 31, 19, 2, '2024-06-07 09:38:52'),
-(42, 31, 20, 2, '2024-06-07 09:38:52'),
-(43, 32, 19, 1, '2024-06-07 09:39:14'),
-(44, 32, 20, 2, '2024-06-07 09:39:14'),
-(45, 33, 19, 1, '2024-06-07 09:39:59'),
-(46, 33, 20, 2, '2024-06-07 09:39:59'),
-(47, 34, 19, 1, '2024-06-07 09:47:52'),
-(48, 34, 20, 2, '2024-06-07 09:47:52'),
-(49, 35, 19, 1, '2024-06-07 09:50:13'),
-(50, 35, 20, 2, '2024-06-07 09:50:13'),
-(51, 36, 19, 1, '2024-06-07 09:50:37'),
-(52, 36, 20, 2, '2024-06-07 09:50:37'),
-(53, 37, 19, 1, '2024-06-07 09:52:08'),
-(54, 37, 20, 2, '2024-06-07 09:52:08'),
-(55, 38, 19, 1, '2024-06-07 09:55:26'),
-(56, 38, 20, 2, '2024-06-07 09:55:26'),
-(57, 39, 19, 1, '2024-06-07 09:55:46'),
-(58, 39, 20, 2, '2024-06-07 09:55:46'),
-(59, 40, 19, 1, '2024-06-07 09:56:32'),
-(60, 40, 20, 2, '2024-06-07 09:56:32'),
-(61, 41, 19, 1, '2024-06-07 10:02:22'),
-(62, 41, 20, 2, '2024-06-07 10:02:22'),
-(63, 42, 19, 1, '2024-06-07 10:24:04'),
-(64, 42, 20, 2, '2024-06-07 10:24:04'),
-(65, 43, 19, 1, '2024-06-07 10:24:38'),
-(66, 43, 20, 2, '2024-06-07 10:24:38'),
-(67, 44, 19, 1, '2024-06-07 10:25:50'),
-(68, 44, 20, 2, '2024-06-07 10:25:50'),
-(69, 45, 19, 2, '2024-06-07 13:43:08'),
-(70, 46, 19, 1, '2024-06-07 13:47:04'),
-(71, 46, 20, 1, '2024-06-07 13:47:04');
-
 -- --------------------------------------------------------
 
 --
@@ -97,38 +46,9 @@ CREATE TABLE `data_pemesan` (
   `nama` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `no_hp` varchar(15) NOT NULL,
-  `idKonser` int(11) DEFAULT NULL,
-  `total_harga` decimal(10,2) NOT NULL DEFAULT 0.00
+  `total_harga` int(11) NOT NULL,
+  `username` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data untuk tabel `data_pemesan`
---
-
-INSERT INTO `data_pemesan` (`id`, `nama`, `email`, `no_hp`, `idKonser`, `total_harga`) VALUES
-(24, 'asfasf', 'safasf@safsdfdf', '341414', NULL, 0.00),
-(25, 'asfasf', 'safasf@safsdfdf', '341414', NULL, 0.00),
-(26, 'asfasf', 'safasf@safsdfdf', '341414', NULL, 0.00),
-(27, 'qeqeqe', 'qeqe@asdasd', '34234', NULL, 0.00),
-(28, 'adadad', 'adada@ssf', '325235235', NULL, 0.00),
-(29, 'adadad', 'adada@ssf', '325235235', NULL, 0.00),
-(30, 'faaf', 'sfasfa@dfgdg', '23525', NULL, 0.00),
-(31, 'faaf', 'sfasfa@dfgdg', '23525', NULL, 0.00),
-(32, 'fefewf', 'wfwef@sdgsd', '45462', NULL, 0.00),
-(33, 'eqtqetq', 'rqre@sdgsdg', '1414124', NULL, 0.00),
-(34, 'eqtqetq', 'rqre@sdgsdg', '1414124', NULL, 0.00),
-(35, 'eqtqetq', 'rqre@sdgsdg', '1414124', NULL, 0.00),
-(36, 'eqtqetq', 'rqre@sdgsdg', '1414124', NULL, 0.00),
-(37, 'eqtqetq', 'rqre@sdgsdg', '1414124', NULL, 0.00),
-(38, 'eqtqetq', 'rqre@sdgsdg', '1414124', NULL, 0.00),
-(39, 'eqtqetq', 'rqre@sdgsdg', '1414124', NULL, 0.00),
-(40, 'eqtqetq', 'rqre@sdgsdg', '1414124', NULL, 0.00),
-(41, 'dsdwd', 'wfwfw@sfsf', '24242', NULL, 0.00),
-(42, 'fsdf', 'ddsgsd@sdgsdg', '345245', NULL, 0.00),
-(43, 'asfasf', 'ddsf@dd', '4314', NULL, 0.00),
-(44, 'sfsfsf', 'sfsfs@sfssf', '3523535', NULL, 0.00),
-(45, 'dfasf', 'adfdf@adfsdg', '413134325', NULL, 0.00),
-(46, 'fdafadf', 'sdgdg@adfda', '3134134', NULL, 0.00);
 
 -- --------------------------------------------------------
 
@@ -140,11 +60,10 @@ CREATE TABLE `data_pemilik_tiket` (
   `id` int(11) NOT NULL,
   `id_pemesan` int(11) DEFAULT NULL,
   `id_tiket` int(11) DEFAULT NULL,
-  `jenis_tiket` varchar(50) DEFAULT NULL,
   `nama_pemilik` varchar(100) DEFAULT NULL,
   `email_pemilik` varchar(100) DEFAULT NULL,
   `no_hp_pemilik` varchar(20) DEFAULT NULL,
-  `waktu_dibuat` timestamp NOT NULL DEFAULT current_timestamp()
+  `waktu_dibuat` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -225,8 +144,32 @@ INSERT INTO `tiket` (`id`, `idKonser`, `namaPaket`, `harga`, `stock`, `tipePaket
 (16, 8, 'Reguler', 26000, 20, 'Reguler'),
 (17, 9, 'VIP', 50000, 15, 'VIP'),
 (18, 9, 'Reguler', 28000, 20, 'Reguler'),
-(19, 10, 'VIP', 50000, 7, 'VIP'),
-(20, 10, 'Reguler', 24000, 9, 'Reguler');
+(19, 10, 'VIP', 50000, 15, 'VIP'),
+(20, 10, 'Reguler', 24000, 20, 'Reguler');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `username` varchar(100) NOT NULL,
+  `pass` varchar(50) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `noHp` varchar(20) NOT NULL,
+  `email` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `pass`, `name`, `noHp`, `email`) VALUES
+(1, 'ita', '123', 'Jelita', '0987654321', 'ita@gmail.com'),
+(2, 'anelsaja', '111', 'Anel Saja', '642246', 'anel@gmail.com'),
+(3, 'ming', '222', 'Ming', '6426246', 'ming@gmail.com');
 
 --
 -- Indexes for dumped tables
@@ -244,16 +187,15 @@ ALTER TABLE `data_pembelian_tiket`
 -- Indeks untuk tabel `data_pemesan`
 --
 ALTER TABLE `data_pemesan`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `FK_data_pemesan_jadwal_konser` (`idKonser`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indeks untuk tabel `data_pemilik_tiket`
 --
 ALTER TABLE `data_pemilik_tiket`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_pemesan` (`id_pemesan`),
-  ADD KEY `id_tiket` (`id_tiket`);
+  ADD KEY `id_tiket` (`id_tiket`),
+  ADD KEY `data_pemilik_tiket_ibfk_1` (`id_pemesan`);
 
 --
 -- Indeks untuk tabel `jadwal_konser`
@@ -269,6 +211,12 @@ ALTER TABLE `tiket`
   ADD KEY `idKonser` (`idKonser`);
 
 --
+-- Indeks untuk tabel `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
@@ -276,19 +224,19 @@ ALTER TABLE `tiket`
 -- AUTO_INCREMENT untuk tabel `data_pembelian_tiket`
 --
 ALTER TABLE `data_pembelian_tiket`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=178;
 
 --
 -- AUTO_INCREMENT untuk tabel `data_pemesan`
 --
 ALTER TABLE `data_pemesan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=134;
 
 --
 -- AUTO_INCREMENT untuk tabel `data_pemilik_tiket`
 --
 ALTER TABLE `data_pemilik_tiket`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT untuk tabel `jadwal_konser`
@@ -303,6 +251,12 @@ ALTER TABLE `tiket`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
+-- AUTO_INCREMENT untuk tabel `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
 
@@ -314,16 +268,10 @@ ALTER TABLE `data_pembelian_tiket`
   ADD CONSTRAINT `data_pembelian_tiket_ibfk_2` FOREIGN KEY (`id_tiket`) REFERENCES `tiket` (`id`);
 
 --
--- Ketidakleluasaan untuk tabel `data_pemesan`
---
-ALTER TABLE `data_pemesan`
-  ADD CONSTRAINT `FK_data_pemesan_jadwal_konser` FOREIGN KEY (`idKonser`) REFERENCES `jadwal_konser` (`id`);
-
---
 -- Ketidakleluasaan untuk tabel `data_pemilik_tiket`
 --
 ALTER TABLE `data_pemilik_tiket`
-  ADD CONSTRAINT `data_pemilik_tiket_ibfk_1` FOREIGN KEY (`id_pemesan`) REFERENCES `data_pemesan` (`id`),
+  ADD CONSTRAINT `data_pemilik_tiket_ibfk_1` FOREIGN KEY (`id_pemesan`) REFERENCES `data_pemesan` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `data_pemilik_tiket_ibfk_2` FOREIGN KEY (`id_tiket`) REFERENCES `tiket` (`id`);
 
 --

@@ -17,58 +17,58 @@ $result_pemesan = $con->query($query_pemesan);
 $update_message = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Handle update and cancel operations
-    if (isset($_POST['update_tiket'])) {
-        // Update ticket owner details
-        $id_tiket = $_POST['id_tiket'];
-        $nama_pemilik = mysqli_real_escape_string($con, $_POST['nama_pemilik']);
-        $email_pemilik = mysqli_real_escape_string($con, $_POST['email_pemilik']);
-        $no_hp_pemilik = mysqli_real_escape_string($con, $_POST['no_hp_pemilik']);
+  // Handle update and cancel operations
+  if (isset($_POST['update_tiket'])) {
+    // Update ticket owner details
+    $id_tiket = $_POST['id_tiket'];
+    $nama_pemilik = mysqli_real_escape_string($con, $_POST['nama_pemilik']);
+    $email_pemilik = mysqli_real_escape_string($con, $_POST['email_pemilik']);
+    $no_hp_pemilik = mysqli_real_escape_string($con, $_POST['no_hp_pemilik']);
         
-        $query_update = "UPDATE data_pemilik_tiket SET nama_pemilik = '$nama_pemilik', email_pemilik = '$email_pemilik', no_hp_pemilik = '$no_hp_pemilik' WHERE id = $id_tiket";
-        $con->query($query_update);
+    $query_update = "UPDATE data_pemilik_tiket SET nama_pemilik = '$nama_pemilik', email_pemilik = '$email_pemilik', no_hp_pemilik = '$no_hp_pemilik' WHERE id = $id_tiket";
+    $con->query($query_update);
 
-        // Check if the update was successful
-        if ($con->affected_rows > 0) {
-            $_SESSION['update_message'] = "<p class='success-msg'>Data pemilik tiket berhasil diperbarui.</p>";
-        } else {
-            $_SESSION['update_message'] = "<p class='error-msg'>Gagal memperbarui data pemilik tiket.</p>";
-        }
-    } elseif (isset($_POST['cancel_pesanan'])) {
-        // Cancel order
-        $id_pesanan = $_POST['id_pesanan'];
-
-        // Mulai transaksi
-        $con->begin_transaction();
-
-        try {
-            // Hapus data terkait di tabel data_pemilik_tiket
-            $query_delete_pemilik_tiket = "DELETE FROM data_pemilik_tiket WHERE id_pemesan = ?";
-            $stmt_pemilik_tiket = $con->prepare($query_delete_pemilik_tiket);
-            $stmt_pemilik_tiket->bind_param("i", $id_pesanan);
-            $stmt_pemilik_tiket->execute();
-
-            // Hapus data terkait di tabel data_pembelian_tiket
-            $query_delete_pembelian_tiket = "DELETE FROM data_pembelian_tiket WHERE id_pemesan = ?";
-            $stmt_pembelian_tiket = $con->prepare($query_delete_pembelian_tiket);
-            $stmt_pembelian_tiket->bind_param("i", $id_pesanan);
-            $stmt_pembelian_tiket->execute();
-
-            // Hapus data di tabel data_pemesan
-            $query_delete_pemesan = "DELETE FROM data_pemesan WHERE id = ?";
-            $stmt_pemesan = $con->prepare($query_delete_pemesan);
-            $stmt_pemesan->bind_param("i", $id_pesanan);
-            $stmt_pemesan->execute();
-
-            // Komit transaksi
-            $con->commit();
-            $_SESSION['update_message'] = "<p class='success-msg'>Pesanan dan tiket terkait berhasil dihapus.</p>";
-        } catch (mysqli_sql_exception $exception) {
-            $con->rollback(); // Jika ada error, rollback transaksi
-            $_SESSION['update_message'] = "<p class='error-msg'>Gagal menghapus pesanan dan tiket terkait.</p>";
-            throw $exception; // Lanjutkan melempar exception
-        }
+    // Check if the update was successful
+    if ($con->affected_rows > 0) {
+      $_SESSION['update_message'] = "<p class='success-msg'>Data pemilik tiket berhasil diperbarui.</p>";
+    } else {
+      $_SESSION['update_message'] = "<p class='error-msg'>Gagal memperbarui data pemilik tiket.</p>";
     }
+  } elseif (isset($_POST['cancel_pesanan'])) {
+    // Cancel order
+    $id_pesanan = $_POST['id_pesanan'];
+
+    // Mulai transaksi
+    $con->begin_transaction();
+
+    try {
+      // Hapus data terkait di tabel data_pemilik_tiket
+      $query_delete_pemilik_tiket = "DELETE FROM data_pemilik_tiket WHERE id_pemesan = ?";
+      $stmt_pemilik_tiket = $con->prepare($query_delete_pemilik_tiket);
+      $stmt_pemilik_tiket->bind_param("i", $id_pesanan);
+      $stmt_pemilik_tiket->execute();
+
+      // Hapus data terkait di tabel data_pembelian_tiket
+      $query_delete_pembelian_tiket = "DELETE FROM data_pembelian_tiket WHERE id_pemesan = ?";
+      $stmt_pembelian_tiket = $con->prepare($query_delete_pembelian_tiket);
+      $stmt_pembelian_tiket->bind_param("i", $id_pesanan);
+      $stmt_pembelian_tiket->execute();
+
+      // Hapus data di tabel data_pemesan
+      $query_delete_pemesan = "DELETE FROM data_pemesan WHERE id = ?";
+      $stmt_pemesan = $con->prepare($query_delete_pemesan);
+      $stmt_pemesan->bind_param("i", $id_pesanan);
+      $stmt_pemesan->execute();
+
+      // Komit transaksi
+      $con->commit();
+      $_SESSION['update_message'] = "<p class='success-msg'>Pesanan dan tiket terkait berhasil dihapus.</p>";
+    } catch (mysqli_sql_exception $exception) {
+      $con->rollback(); // Jika ada error, rollback transaksi
+      $_SESSION['update_message'] = "<p class='error-msg'>Gagal menghapus pesanan dan tiket terkait.</p>";
+      throw $exception; // Lanjutkan melempar exception
+    }
+  }
 }
 ?>
 
