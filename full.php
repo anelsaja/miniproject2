@@ -27,7 +27,7 @@
       </div>
       <div class="cari">
         <form method="GET" action="searching.php">
-          <input type="text" id="cari" name="cari" value="<?php echo isset($_GET['cari']) ? htmlspecialchars($_GET['cari']) : ''; ?>" placeholder="Cari Orkes, Tanggal, dan Lokasi ...">
+          <input type="text" id="cari" name="cari" value="<?php echo isset($_GET['cari']) ? htmlspecialchars($_GET['cari']) : ''; ?>" placeholder="Cari Orkes, Tanggal, Lokasi, dan artis">
           <button type="submit">Cari</button>
         </form>
       </div>

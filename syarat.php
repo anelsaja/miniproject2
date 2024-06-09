@@ -6,15 +6,15 @@
 ?>
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="syarat.css">
     <link rel="icon" href="img/logo.png">
     <title>Syarat dan Ketentuan</title>
-</head>
-<body>
-<header>
+  </head>
+  <body>
+    <header>
       <div class="logo1">
         <a href="halamanutama.php">
           <img src="img/logo.png" alt="logo" />
@@ -27,7 +27,7 @@
       </div>
       <div class="cari">
         <form method="GET" action="searching.php">
-          <input type="text" id="cari" name="cari" value="<?php echo isset($_GET['cari']) ? htmlspecialchars($_GET['cari']) : ''; ?>" placeholder="Cari Orkes, Tanggal, dan Lokasi ...">
+          <input type="text" id="cari" name="cari" value="<?php echo isset($_GET['cari']) ? htmlspecialchars($_GET['cari']) : ''; ?>" placeholder="Cari Orkes, Tanggal, Lokasi, dan artis">
           <button type="submit">Cari</button>
         </form>
       </div>
@@ -55,28 +55,27 @@
     </header>
 
     <main>
-    <h1>Syarat dan Ketentuan</h1>
-        <section class="content">
-            <h4>1. Penggunaan Situs</h4>
-            <p>Ini adalah bagian syarat dan ketentuan yang menjelaskan penggunaan situs.</p>
-        </section>
+      <h1>Syarat dan Ketentuan</h1>
+      <section class="content">
+        <h4>1. Penggunaan Situs</h4>
+        <p>Ini adalah bagian syarat dan ketentuan yang menjelaskan penggunaan situs.</p>
+      </section>
 
-        <section class="content">
-            <h4>2. Kebijakan Privasi</h4>
-            <p>Kami menghargai privasi Anda. Baca lebih lanjut tentang kebijakan privasi kami.</p>
-        </section>
+      <section class="content">
+        <h4>2. Kebijakan Privasi</h4>
+        <p>Kami menghargai privasi Anda. Baca lebih lanjut tentang kebijakan privasi kami.</p>
+      </section>
 
-        <section class="content">
-            <h4>3. Hak Cipta</h4>
-            <p>Semua konten di situs ini adalah hak cipta kami kecuali disebutkan lain.</p>
-        </section>
+      <section class="content">
+        <h4>3. Hak Cipta</h4>
+        <p>Semua konten di situs ini adalah hak cipta kami kecuali disebutkan lain.</p>
+      </section>
 
-        <section class="content">
-            <h4>4. Perubahan pada Syarat dan Ketentuan</h4>
-            <p>Kami berhak untuk mengubah syarat dan ketentuan tanpa pemberitahuan sebelumnya.</p>
-        </section>
+      <section class="content">
+        <h4>4. Perubahan pada Syarat dan Ketentuan</h4>
+        <p>Kami berhak untuk mengubah syarat dan ketentuan tanpa pemberitahuan sebelumnya.</p>
+      </section>
     </main>
-
     <footer>
       <div class="footer1">
         <div class="footerkiri">
@@ -116,5 +115,5 @@
         <p>&copy; 2024 Ojink. All Rights Reserved</p>
       </div>
     </footer>
-</body>
+  </body>
 </html>

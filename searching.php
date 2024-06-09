@@ -6,15 +6,14 @@
 ?>
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hasil Pencarian</title>
     <link rel="icon" href="img/logo.png" />
     <link rel="stylesheet" href="searching.css">
-</head>
-<body>
-    </div>
+  </head>
+  <body>
     <header>
       <div class="logo1">
         <a href="halamanutama.php">
@@ -28,7 +27,7 @@
       </div>
       <div class="cari">
         <form method="GET">
-          <input type="text" id="cari" name="cari" value="<?php echo isset($_GET['cari']) ? htmlspecialchars($_GET['cari']) : ''; ?>" placeholder="Masukkan kata kunci pencarian">
+          <input type="text" id="cari" name="cari" value="<?php echo isset($_GET['cari']) ? htmlspecialchars($_GET['cari']) : ''; ?>" placeholder="Cari Orkes, Tanggal, Lokasi, dan artis">
           <button type="submit">Cari</button>
         </form>
       </div>
@@ -61,8 +60,6 @@
     </div>
     
     <?php
-
-
     // Ambil input pencarian
     $cari = isset($_GET['cari']) ? $_GET['cari'] : '';
 
@@ -70,10 +67,11 @@
     $searchTitle = "%{$cari}%";
     $searchLocation = "%{$cari}%";
     $searchDate = "%{$cari}%";
+    $searchartis = "%{$cari}%";
 
     // Query pencarian
-    $querycari = $con->prepare("SELECT id, img, title, tanggal, lokasi, waktu, CONCAT('Rp ', REPLACE(FORMAT(harga, 0), ',', '.'),',-') AS harga FROM jadwal_konser WHERE title LIKE ? OR lokasi LIKE ? OR tanggal LIKE ? ORDER BY tanggal DESC");
-    $querycari->bind_param("sss", $searchTitle, $searchLocation, $searchDate);
+    $querycari = $con->prepare("SELECT id, img, title, tanggal, lokasi, waktu, CONCAT('Rp ', REPLACE(FORMAT(harga, 0), ',', '.'),',-') AS harga, artis FROM jadwal_konser WHERE title LIKE ? OR lokasi LIKE ? OR tanggal LIKE ? OR artis LIKE ? ORDER BY tanggal DESC");
+    $querycari->bind_param("ssss", $searchTitle, $searchLocation, $searchDate, $searchartis);
 
     // Eksekusi query
     $querycari->execute();
@@ -83,44 +81,43 @@
     if ($result->num_rows > 0) {
       echo "<h3>Hasil Pencarian:</h3>";
         while ($row = $result->fetch_assoc()) {
-            echo '<div class="container-content">';
-            echo '  <div class="pemaindor">';
-            echo '    <div class="kotak">';
-            echo '      <div class="poster">';
-            echo '        <img src="img/' . htmlspecialchars($row['img']) . '" alt="' . htmlspecialchars($row['img']) . '" />';
-            echo '      </div>';
-            echo '      <div class="isi">';
-            echo '        <h2>' . htmlspecialchars($row['title']) . '</h2>';
-            echo '        <table>';
-            echo '          <tr>';
-            echo '            <td>Tanggal</td>';
-            echo '            <td>: ' . date('d F Y', strtotime($row['tanggal'])) . '</td>';
-            echo '          </tr>';
-            echo '          <tr>';
-            echo '            <td>Lokasi</td>';
-            echo '            <td>: ' . htmlspecialchars($row['lokasi']) . '</td>';
-            echo '          </tr>';
-            echo '          <tr>';
-            echo '            <td>Waktu</td>';
-            echo '            <td>: ' . htmlspecialchars($row['waktu']) . '</td>';
-            echo '          </tr>';
-            echo '          <tr>';
-            echo '            <td class="harga">Harga Mulai</td>';
-            echo '            <td class="harga">: ' . htmlspecialchars($row['harga']) . '</td>';
-            echo '          </tr>';
-            echo '        </table>';
-            echo '        <div class="detail">';
-            echo '          <a href="detail.php?id=' . htmlspecialchars($row['id']) . '">Detail</a>';
-            echo '        </div>';
-            echo '      </div>';
-            echo '    </div>';
-            echo '  </div>';
-            echo '</div>';
-
+          echo '<div class="container-content">';
+          echo '  <div class="pemaindor">';
+          echo '    <div class="kotak">';
+          echo '      <div class="poster">';
+          echo '        <img src="img/' . htmlspecialchars($row['img']) . '" alt="' . htmlspecialchars($row['img']) . '" />';
+          echo '      </div>';
+          echo '      <div class="isi">';
+          echo '        <h2>' . htmlspecialchars($row['title']) . '</h2>';
+          echo '        <table>';
+          echo '          <tr>';
+          echo '            <td>Tanggal</td>';
+          echo '            <td>: ' . date('d F Y', strtotime($row['tanggal'])) . '</td>';
+          echo '          </tr>';
+          echo '          <tr>';
+          echo '            <td>Lokasi</td>';
+          echo '            <td>: ' . htmlspecialchars($row['lokasi']) . '</td>';
+          echo '          </tr>';
+          echo '          <tr>';
+          echo '            <td>Waktu</td>';
+          echo '            <td>: ' . htmlspecialchars($row['waktu']) . '</td>';
+          echo '          </tr>';
+          echo '          <tr>';
+          echo '            <td class="harga">Harga Mulai</td>';
+          echo '            <td class="harga">: ' . htmlspecialchars($row['harga']) . '</td>';
+          echo '          </tr>';
+          echo '        </table>';
+          echo '        <div class="detail">';
+          echo '          <a href="detail.php?id=' . htmlspecialchars($row['id']) . '">Detail</a>';
+          echo '        </div>';
+          echo '      </div>';
+          echo '    </div>';
+          echo '  </div>';
+          echo '</div>';
         }
-    } else {
+      } else {
         echo "<div class='gagal'>Tidak ada hasil yang ditemukan untuk pencarian Anda.</div>";
-    }
+      }
 
     // Tutup statement
     $querycari->close();
@@ -128,10 +125,6 @@
     // Tutup koneksi
     $con->close();
     ?>
-
-
-
-
     <footer>
       <div class="footer1">
         <div class="footerkiri">
@@ -171,5 +164,5 @@
         <p>&copy; 2024 Ojink. All Rights Reserved</p>
       </div>
     </footer>
-</body>
+  </body>
 </html>

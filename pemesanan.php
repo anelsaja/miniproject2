@@ -89,7 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_pemesanan'])) {
         </div>
         <div class="cari">
           <form method="GET" action="searching.php">
-            <input type="text" id="cari" name="cari" value="<?php echo isset($_GET['cari']) ? htmlspecialchars($_GET['cari']) : ''; ?>" placeholder="Cari Orkes, Tanggal, dan Lokasi ...">
+            <input type="text" id="cari" name="cari" value="<?php echo isset($_GET['cari']) ? htmlspecialchars($_GET['cari']) : ''; ?>" placeholder="Cari Orkes, Tanggal, Lokasi, dan artis">
             <button type="submit">Cari</button>
           </form>
         </div>
@@ -173,8 +173,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_pemesanan'])) {
         echo "<p class='pesan_error'>Data pemesan tidak ditemukan. Silakan isi data pemesan terlebih dahulu.</p>";
       }
 
-      // Ambil ID pemesan dari session atau sesuai dengan cara Anda
-      // $id_pemesan1 = $_SESSION['last_insert_id']; // Misalnya, ini adalah cara untuk mendapatkan ID pemesan dari session
       if (isset($id_pemesan1)) {
         if (!isset($sukses) && !isset($error)) {
           foreach ($_SESSION['jumlah_tiket'] as $id_tiket => $jumlah) {

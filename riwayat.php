@@ -96,7 +96,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       </div>
       <div class="cari">
         <form method="GET" action="searching.php">
-          <input type="text" id="cari" name="cari" value="<?php echo isset($_GET['cari']) ? htmlspecialchars($_GET['cari']) : ''; ?>" placeholder="Cari Orkes, Tanggal, dan Lokasi ...">
+          <input type="text" id="cari" name="cari" value="<?php echo isset($_GET['cari']) ? htmlspecialchars($_GET['cari']) : ''; ?>" placeholder="Cari Orkes, Tanggal, Lokasi, dan artis">
           <button type="submit">Cari</button>
         </form>
       </div>
@@ -135,51 +135,50 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <?php
     // Tampilkan pesan jika ada
     if (isset($_SESSION['update_message'])) {
-        echo $_SESSION['update_message'];
-        unset($_SESSION['update_message']); // Hapus pesan dari session
+      echo $_SESSION['update_message'];
+      unset($_SESSION['update_message']); // Hapus pesan dari session
     }
     if ($result_pemesan->num_rows > 0) {
-        while ($row_pemesan = $result_pemesan->fetch_assoc()) {
-            $id_pemesan = $row_pemesan['id'];
-            echo "<main>";
-            echo "<h2>Order ID: " . $row_pemesan['id'] . "</h2>";
-            echo "<p>Nama Pemesan: " . $row_pemesan['nama'] . "</p>";
-            echo "<p>Email Pemesan: " . $row_pemesan['email'] . "</p>";
-            echo "<p>No. HP Pemesan: " . $row_pemesan['no_hp'] . "</p>";
-            echo "<p>Total Harga: Rp " . number_format($row_pemesan['total_harga'], 0, ',', '.') . ",-</p>";
-            // echo "<p>Total Harga: " . $row_pemesan['CONCAT('Rp ', REPLACE(FORMAT(harga, 0), ',', '.'),',-') AS harga'] . "</p>";
+      while ($row_pemesan = $result_pemesan->fetch_assoc()) {
+        $id_pemesan = $row_pemesan['id'];
+        echo "<main>";
+        echo "<h2>Order ID: " . $row_pemesan['id'] . "</h2>";
+        echo "<p>Nama Pemesan: " . $row_pemesan['nama'] . "</p>";
+        echo "<p>Email Pemesan: " . $row_pemesan['email'] . "</p>";
+        echo "<p>No. HP Pemesan: " . $row_pemesan['no_hp'] . "</p>";
+        echo "<p>Total Harga: Rp " . number_format($row_pemesan['total_harga'], 0, ',', '.') . ",-</p>";
 
-            // Fetch ticket owner details
-            $query_pemilik = "SELECT * FROM data_pemilik_tiket WHERE id_pemesan = $id_pemesan";
-            $result_pemilik = $con->query($query_pemilik);
+        // Fetch ticket owner details
+        $query_pemilik = "SELECT * FROM data_pemilik_tiket WHERE id_pemesan = $id_pemesan";
+        $result_pemilik = $con->query($query_pemilik);
             
-            if ($result_pemilik->num_rows > 0) {
-                while ($row_pemilik = $result_pemilik->fetch_assoc()) {
-                    echo "<form method='post'>";
-                    echo "<fieldset>";
-                    echo "<legend>Data Pemilik Tiket</legend>";
-                    echo "<input type='hidden' name='id_tiket' value='" . $row_pemilik['id'] . "'>";
-                    echo "<label for='nama_pemilik'>Nama Pemilik Tiket:</label><br />";
-                    echo "<input type='text' name='nama_pemilik' value='" . $row_pemilik['nama_pemilik'] . "' required /><br />";
-                    echo "<label for='email_pemilik'>Email:</label><br />";
-                    echo "<input type='email' name='email_pemilik' value='" . $row_pemilik['email_pemilik'] . "' required /><br />";
-                    echo "<label for='no_hp_pemilik'>No. HP:</label><br />";
-                    echo "<input type='text' name='no_hp_pemilik' value='" . $row_pemilik['no_hp_pemilik'] . "' required /><br />";
-                    echo "<input type='submit' name='update_tiket' value='Update'>";
-                    echo "</fieldset>";
-                    echo "</form>";
-                }
-            }
-            
-            // Cancel order button
+        if ($result_pemilik->num_rows > 0) {
+          while ($row_pemilik = $result_pemilik->fetch_assoc()) {
             echo "<form method='post'>";
-            echo "<input type='hidden' name='id_pesanan' value='$id_pemesan'>";
-            echo "<input type='submit' name='cancel_pesanan' value='Cancel Order'>";
+            echo "<fieldset>";
+            echo "<legend>Data Pemilik Tiket</legend>";
+            echo "<input type='hidden' name='id_tiket' value='" . $row_pemilik['id'] . "'>";
+            echo "<label for='nama_pemilik'>Nama Pemilik Tiket:</label><br />";
+            echo "<input type='text' name='nama_pemilik' value='" . $row_pemilik['nama_pemilik'] . "' required /><br />";
+            echo "<label for='email_pemilik'>Email:</label><br />";
+            echo "<input type='email' name='email_pemilik' value='" . $row_pemilik['email_pemilik'] . "' required /><br />";
+            echo "<label for='no_hp_pemilik'>No. HP:</label><br />";
+            echo "<input type='text' name='no_hp_pemilik' value='" . $row_pemilik['no_hp_pemilik'] . "' required /><br />";
+            echo "<input type='submit' name='update_tiket' value='Update'>";
+            echo "</fieldset>";
             echo "</form>";
-            echo "</main>";
+          }
         }
+            
+        // Cancel order button
+        echo "<form method='post'>";
+        echo "<input type='hidden' name='id_pesanan' value='$id_pemesan'>";
+        echo "<input type='submit' name='cancel_pesanan' value='Cancel Order'>";
+        echo "</form>";
+        echo "</main>";
+      }
     } else {
-        echo "<p id='kosong'>No orders found.</p>";
+      echo "<p id='kosong'>No orders found.</p>";
     }
     ?>
     <footer>
