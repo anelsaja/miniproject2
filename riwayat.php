@@ -42,6 +42,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $con->begin_transaction();
 
     try {
+      // Ambil jumlah tiket dan id_tiket sebelum menghapus
+      $query_get_tickets = "SELECT id_tiket, jumlah_tiket FROM data_pembelian_tiket WHERE id_pemesan = ?";
+      $stmt_get_tickets = $con->prepare($query_get_tickets);
+      $stmt_get_tickets->bind_param("i", $id_pesanan);
+      $stmt_get_tickets->execute();
+      $result_tickets = $stmt_get_tickets->get_result();
+
+      // Mengembalikan stok tiket
+      while ($row_tickets = $result_tickets->fetch_assoc()) {
+        $id_tiket = $row_tickets['id_tiket'];
+        $jumlah_tiket = $row_tickets['jumlah_tiket'];
+
+        // Update stok tiket di tabel tiket
+        $query_update_stok = "UPDATE tiket SET stock = stock + ? WHERE id = ?";
+        $stmt_update_stok = $con->prepare($query_update_stok);
+        $stmt_update_stok->bind_param("ii", $jumlah_tiket, $id_tiket);
+        $stmt_update_stok->execute();
+      }
+
       // Hapus data terkait di tabel data_pemilik_tiket
       $query_delete_pemilik_tiket = "DELETE FROM data_pemilik_tiket WHERE id_pemesan = ?";
       $stmt_pemilik_tiket = $con->prepare($query_delete_pemilik_tiket);
@@ -62,11 +81,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
       // Komit transaksi
       $con->commit();
-      $_SESSION['update_message'] = "<p class='success-msg'>Pesanan dan tiket terkait berhasil dihapus.</p>";
+      $_SESSION['update_message'] = "<p class='success-msg'>Pesanan dan tiket terkait berhasil dihapus. Stok tiket telah dikembalikan.</p>";
     } catch (mysqli_sql_exception $exception) {
-      $con->rollback(); // Jika ada error, rollback transaksi
-      $_SESSION['update_message'] = "<p class='error-msg'>Gagal menghapus pesanan dan tiket terkait.</p>";
-      throw $exception; // Lanjutkan melempar exception
+        $con->rollback(); // Jika ada error, rollback transaksi
+        $_SESSION['update_message'] = "<p class='error-msg'>Gagal menghapus pesanan dan tiket terkait. Stok tiket tidak berubah.</p>";
+        throw $exception; // Lanjutkan melempar exception
     }
   }
 }
@@ -133,30 +152,47 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
     
     <?php
-    // Tampilkan pesan jika ada
-    if (isset($_SESSION['update_message'])) {
-      echo $_SESSION['update_message'];
-      unset($_SESSION['update_message']); // Hapus pesan dari session
-    }
-    if ($result_pemesan->num_rows > 0) {
-      while ($row_pemesan = $result_pemesan->fetch_assoc()) {
-        $id_pemesan = $row_pemesan['id'];
-        echo "<main>";
-        echo "<h2>Order ID: " . $row_pemesan['id'] . "</h2>";
-        echo "<p>Nama Pemesan: " . $row_pemesan['nama'] . "</p>";
-        echo "<p>Email Pemesan: " . $row_pemesan['email'] . "</p>";
-        echo "<p>No. HP Pemesan: " . $row_pemesan['no_hp'] . "</p>";
-        echo "<p>Total Harga: Rp " . number_format($row_pemesan['total_harga'], 0, ',', '.') . ",-</p>";
+// Tampilkan pesan jika ada
+if (isset($_SESSION['update_message'])) {
+    echo $_SESSION['update_message'];
+    unset($_SESSION['update_message']); // Hapus pesan dari session
+}
 
-        // Fetch ticket owner details
-        $query_pemilik = "SELECT * FROM data_pemilik_tiket WHERE id_pemesan = $id_pemesan";
+if ($result_pemesan->num_rows > 0) {
+  while ($row_pemesan = $result_pemesan->fetch_assoc()) {
+    $id_pemesan = $row_pemesan['id'];
+    echo "<main>";
+    echo "<h2>Order ID: " . $row_pemesan['id'] . "</h2>";
+    echo "<p>Nama Pemesan: " . $row_pemesan['nama'] . "</p>";
+    echo "<p>Email Pemesan: " . $row_pemesan['email'] . "</p>";
+    echo "<p>No. HP Pemesan: " . $row_pemesan['no_hp'] . "</p>";
+    echo "<p>Total Harga: Rp " . number_format($row_pemesan['total_harga'], 0, ',', '.') . ",-</p>";
+
+    // Fetch ticket details
+    $query_tiket = "SELECT t.namaPaket, t.harga, dbt.jumlah_tiket, dbt.id_tiket, jk.title AS nama_konser, jk.tanggal AS tanggal_konser, jk.lokasi AS lokasi_konser 
+                        FROM data_pembelian_tiket dbt 
+                        JOIN tiket t ON dbt.id_tiket = t.id 
+                        JOIN jadwal_konser jk ON t.idKonser = jk.id 
+                        WHERE dbt.id_pemesan = $id_pemesan";
+    $result_tiket = $con->query($query_tiket);
+
+    if ($result_tiket->num_rows > 0) {
+      echo "<h3>Detail Tiket</h3>";
+      $row_tiket = $result_tiket->fetch_assoc();
+      echo "<p>Nama Konser: " . $row_tiket['nama_konser'] . "</p>";
+      echo "<p>Tanggal Konser: " . date('d-m-Y', strtotime($row_tiket['tanggal_konser'])) . "</p>";
+      echo "<p>Lokasi Konser: " . $row_tiket['lokasi_konser'] . "</p>";
+
+      // Menampilkan detail paket dan data pemilik tiket berdasarkan tipe paket
+      do {
+        // Fetch ticket owner details for the current package
+        $query_pemilik = "SELECT * FROM data_pemilik_tiket WHERE id_pemesan = $id_pemesan AND id_tiket = " . $row_tiket['id_tiket'];
         $result_pemilik = $con->query($query_pemilik);
-            
         if ($result_pemilik->num_rows > 0) {
           while ($row_pemilik = $result_pemilik->fetch_assoc()) {
             echo "<form method='post'>";
             echo "<fieldset>";
-            echo "<legend>Data Pemilik Tiket</legend>";
+            echo "<legend>Data Pemilik Tiket " . $row_tiket['namaPaket'] . "</legend>";
             echo "<input type='hidden' name='id_tiket' value='" . $row_pemilik['id'] . "'>";
             echo "<label for='nama_pemilik'>Nama Pemilik Tiket:</label><br />";
             echo "<input type='text' name='nama_pemilik' value='" . $row_pemilik['nama_pemilik'] . "' required /><br />";
@@ -168,19 +204,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "</fieldset>";
             echo "</form>";
           }
+        } else {
+          echo "<p>Tidak ada data pemilik tiket untuk paket ini.</p>";
         }
-            
-        // Cancel order button
-        echo "<form method='post'>";
-        echo "<input type='hidden' name='id_pesanan' value='$id_pemesan'>";
-        echo "<input type='submit' name='cancel_pesanan' value='Cancel Order'>";
-        echo "</form>";
-        echo "</main>";
-      }
+      } while ($row_tiket = $result_tiket->fetch_assoc());
     } else {
-      echo "<p id='kosong'>No orders found.</p>";
+      echo "<p>Tidak ada data tiket.</p>";
     }
-    ?>
+    // Cancel order button
+    echo "<form method='post'>";
+    echo "<input type='hidden' name='id_pesanan' value='$id_pemesan'>";
+    echo "<input type='submit' name='cancel_pesanan' value='Cancel Order'>";
+    echo "</form>";
+    echo "</main>";
+  }
+} else {
+    echo "<p id='kosong'>No orders found.</p>";
+}
+?>
+
     <footer>
       <div class="footer1">
         <div class="footerkiri">
