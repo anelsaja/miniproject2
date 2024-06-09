@@ -146,6 +146,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "<p>Nama Pemesan: " . $row_pemesan['nama'] . "</p>";
             echo "<p>Email Pemesan: " . $row_pemesan['email'] . "</p>";
             echo "<p>No. HP Pemesan: " . $row_pemesan['no_hp'] . "</p>";
+            echo "<p>Total Harga: Rp " . number_format($row_pemesan['total_harga'], 0, ',', '.') . ",-</p>";
+            // echo "<p>Total Harga: " . $row_pemesan['CONCAT('Rp ', REPLACE(FORMAT(harga, 0), ',', '.'),',-') AS harga'] . "</p>";
 
             // Fetch ticket owner details
             $query_pemilik = "SELECT * FROM data_pemilik_tiket WHERE id_pemesan = $id_pemesan";
