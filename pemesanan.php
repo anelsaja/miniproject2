@@ -128,7 +128,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_pemesanan'])) {
     </h5>
     <div class="awalan">
       <div class="login">
-        <a href="detail.html">Kembali</a>
+        <a href="detail.php">Kembali</a>
       </div>
     </div>
 
