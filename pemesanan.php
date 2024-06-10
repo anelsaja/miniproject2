@@ -121,14 +121,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_pemesanan'])) {
     </div>
 
     <!-- ----Awalan---- -->
-    <h5>
-      <a href="halamanutama.php?nama=<?php echo $orkes['title']?>">Halaman Utama</a> >
-      <a href="detail.php?nama=<?php echo $orkes['title']?>">Detail Orkes</a> >
-      <a href="pemesanan.php?nama=<?php echo $orkes['title']?>">Pemesanan</a>
-    </h5>
     <div class="awalan">
       <div class="login">
-        <a href="detail.php">Kembali</a>
+        <a href="halamanutama.php">Batalkan Pesanan</a>
       </div>
     </div>
 
